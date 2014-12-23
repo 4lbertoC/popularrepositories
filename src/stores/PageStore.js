@@ -37,7 +37,7 @@ PageStore.dispatcherToken = Dispatcher.register(payload => {
 
   var action = payload.action;
 
-  if (action.actionType == ActionTypes.SET_CURRENT_PAGE) {
+  if (action.actionType == ActionTypes.NAVIGATION.SET_CURRENT_PAGE) {
     _page = action.page;
     PageStore.emitChange();
   }

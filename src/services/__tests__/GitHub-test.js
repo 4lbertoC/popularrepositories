@@ -1,0 +1,38 @@
+/*
+ * Popular Repositories
+ * Copyright (c) 2014 Alberto Congiu (@4lbertoC)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+/* global jest, describe, it, expect */
+
+'use strict';
+
+jest.dontMock('string-template');
+jest.dontMock('../GitHub');
+
+describe('GitHub', function() {
+
+	describe('getRepoList(userId, callback)', function() {
+
+		it('asynchronously provides a GitHubRepoList for the given userId through the given callback', function() {
+			var GitHub = require('../GitHub');
+			// Custom mock, returns fake response.
+			var request = require('superagent');
+
+			var testUserId = 'testUser';
+			// GitHubRepoList expected for the fake response.
+			var expectedGitHubRepoList = require.requireActual('../__mocks__/fakeGitHubRepoList.js');
+
+			var myCallback = function(gitHubRepoList) {
+				expect(gitHubRepoList).toEqual(expectedGitHubRepoList);
+			};
+
+			GitHub.getRepoList(testUserId, myCallback);
+		});
+
+	});
+
+});

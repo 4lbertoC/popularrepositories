@@ -10,7 +10,10 @@
     "director": "^1.2.7",
     "flux": "^2.0.1",
     "object-assign": "^2.0.0",
-    "react": "^0.12.2"
+    "querystring": "^0.2.0",
+    "react": "^0.12.2",
+    "string-template": "^0.2.0",
+    "superagent": "^0.21.0"
   },
   "devDependencies": {
     "browser-sync": "^1.8.1",

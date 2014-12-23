@@ -18,31 +18,11 @@ body {
 .navbar-brand {
   padding-top: 8px;
   padding-bottom: 8px;
-  color: #00d8ff !important;
+  color: #ffffff !important;
   font-size: 24px;
 
   img {
     margin-right: 10px;
     display: inline;
-  }
-}
-
-//
-// Navigation Footer
-// -----------------------------------------------------------------------------
-
-.navbar-footer {
-  &:extend(.navbar);
-  &:extend(.navbar-fixed-bottom);
-
-  background-color: darken(@body-bg, 2%);
-
-  .text-muted {
-    margin-top: 1em;
-
-    span + span:before {
-      content: "\2022\00a0"; // Unicode space added since inline-block means non-collapsing white-space
-      padding: 0 3px 0 7px;
-    }
   }
 }

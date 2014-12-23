@@ -21,7 +21,7 @@ module.exports = {
    */
   set(page) {
     Dispatcher.handleViewAction({
-      actionType: ActionTypes.SET_CURRENT_PAGE,
+      actionType: ActionTypes.NAVIGATION.SET_CURRENT_PAGE,
       page: assign({}, pageDefaults, page)
     });
   }

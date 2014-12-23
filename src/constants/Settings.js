@@ -11,11 +11,16 @@ module.exports = {
   defaults: {
 
     page: {
-      title: 'React.js Starter Kit',
-      description: 'A skeleton for an isomorphic web application (SPA) built with React.js and Flux',
+      title: 'Popular Repositories',
+      description: 'A list of the popular repositories for a given GitHub user',
       keywords: null
 
+    },
+
+    gitHub: {
+    	userId: '4lbertoC'
     }
+
   }
 
 };

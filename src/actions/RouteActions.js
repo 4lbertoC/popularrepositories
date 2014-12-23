@@ -19,7 +19,7 @@ module.exports = {
    */
   setRoute(route) {
     Dispatcher.handleViewAction({
-      actionType: ActionTypes.SET_CURRENT_ROUTE,
+      actionType: ActionTypes.NAVIGATION.SET_CURRENT_ROUTE,
       route: route
     });
   }

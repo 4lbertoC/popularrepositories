@@ -1,0 +1,13 @@
+module.exports = {
+  userId: 'testUser',
+  repos: [{
+    key: 0,
+    name: 'testRepo1',
+    ownerUserId: 'testUser',
+    description: 'This is a test repo',
+    isFork: false,
+    stars: 123,
+    watchers: 456,
+    forks: 7
+  }]
+};

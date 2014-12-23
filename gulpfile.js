@@ -92,6 +92,14 @@ gulp.task('assets', function() {
     .pipe($.size({title: 'assets'}));
 });
 
+// Helpers
+gulp.task('helpers', function() {
+  src.helpers = 'src/helpers/**';
+  return gulp.src(src.helpers)
+    .pipe($.changed(DEST))
+    .pipe($.size({title: 'helpers'}));
+});
+
 // Images
 gulp.task('images', function() {
   src.images = 'src/images/**';
@@ -115,7 +123,7 @@ gulp.task('pages', function() {
 
   // Capture document.title and other page metadata changes
   Dispatcher.register(function(payload) {
-    if (payload.action.actionType == ActionTypes.SET_CURRENT_PAGE)
+    if (payload.action.actionType == ActionTypes.NAVIGATION.SET_CURRENT_PAGE)
     {
       currentPage = payload.action.page;
     }
@@ -140,6 +148,14 @@ gulp.task('pages', function() {
     .pipe($.if('**/home.html', $.rename('index.html')))
     .pipe(gulp.dest(DEST))
     .pipe($.size({title: 'pages'}));
+});
+
+// Services
+gulp.task('services', function() {
+  src.services = 'src/services/**';
+  return gulp.src(src.services)
+    .pipe($.changed(DEST))
+    .pipe($.size({title: 'services'}));
 });
 
 // CSS style sheets
@@ -187,7 +203,7 @@ gulp.task('bundle', function(cb) {
 
 // Build the app from source code
 gulp.task('build', ['clean'], function(cb) {
-  runSequence(['vendor', 'assets', 'images', 'pages', 'styles', 'bundle'], cb);
+  runSequence(['vendor', 'assets', 'helpers', 'images', 'pages', 'styles', 'services', 'bundle'], cb);
 });
 
 // Launch a lightweight HTTP Server
@@ -225,8 +241,10 @@ gulp.task('serve', function(cb) {
     });
 
     gulp.watch(src.assets, ['assets']);
+    gulp.watch(src.helpers, ['helpers']);
     gulp.watch(src.images, ['images']);
     gulp.watch(src.pages, ['pages']);
+    gulp.watch(src.services, ['services']);
     gulp.watch(src.styles, ['styles']);
     gulp.watch(DEST + '/**/*.*', function(file) {
       browserSync.reload(path.relative(__dirname, file.path));

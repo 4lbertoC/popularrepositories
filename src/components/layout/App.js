@@ -36,37 +36,11 @@ var DefaultLayout = React.createClass({
   },
 
   render() {
-    /* jshint ignore:start */
-    var header = this.props.children.type.breadcrumb ? (
-      <div className="container">
-        <h2>{this.state.title}</h2>
-        {this.props.children.type.breadcrumb}
-      </div>
-    ) : (
-      <div className="jumbotron">
-        <div className="container text-center">
-          <h1>React</h1>
-          <p>Complex web apps made easy</p>
-        </div>
-      </div>
-    );
-    /* jshint ignore:end */
-
     return (
       /* jshint ignore:start */
       <div>
         <Navbar />
-        {header}
         {this.props.children}
-        <div className="navbar-footer">
-          <div className="container">
-            <p className="text-muted">
-              <span>© KriaSoft</span>
-              <span><Link to="/">Home</Link></span>
-              <span><Link to="/privacy">Privacy</Link></span>
-            </p>
-          </div>
-        </div>
       </div>
       /* jshint ignore:end */
     );

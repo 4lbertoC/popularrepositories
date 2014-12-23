@@ -8,10 +8,20 @@
 
 module.exports = {
 
-  // Route action types
-  SET_CURRENT_ROUTE: 'SET_CURRENT_ROUTE',
+  GITHUB: {
 
-  // Page action types
-  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE'
+    LOAD_REPO_LIST: 'LOAD_REPO_LIST'
+
+  },
+
+  NAVIGATION: {
+
+    // Route action types
+    SET_CURRENT_ROUTE: 'SET_CURRENT_ROUTE',
+
+    // Page action types
+    SET_CURRENT_PAGE: 'SET_CURRENT_PAGE'
+
+  }
 
 };

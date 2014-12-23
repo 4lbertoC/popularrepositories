@@ -24,14 +24,18 @@ Dispatcher.register((payload) => {
 
   switch (action.actionType)
   {
-    case ActionTypes.SET_CURRENT_ROUTE:
+    case ActionTypes.NAVIGATION.SET_CURRENT_ROUTE:
       router.setRoute(action.route);
       break;
 
-    case ActionTypes.SET_CURRENT_PAGE:
+    case ActionTypes.NAVIGATION.SET_CURRENT_PAGE:
       if (ExecutionEnvironment.canUseDOM) {
         document.title = action.page.title;
       }
+      break;
+
+    case ActionTypes.GITHUB.LOAD_REPO:
+      // TODO
       break;
   }
 
@@ -55,7 +59,8 @@ function render(page) {
 // See https://github.com/flatiron/director
 var routes = {
   '/': () => render(require('./components/pages/Home')),
-  '/privacy': () => render(require('./components/pages/Privacy'))
+  '/privacy': () => render(require('./components/pages/Privacy')),
+  '/repo': () => render(require('./components/pages/Repo'))
 };
 
 // Initialize a router
