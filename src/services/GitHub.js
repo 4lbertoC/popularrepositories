@@ -11,6 +11,8 @@
 var request = require('superagent');
 var format = require('string-template');
 
+var GitHubHelper = require('../helpers/GitHubHelper');
+
 var constants = {
   LINK_MATCHERS: {
     LAST_PAGE_NUMBER: /<[^>]+page=([0-9]+)([^>]*)>; rel="last"/,
@@ -48,21 +50,6 @@ function convertToGitHubRepos(repos) {
       /* jshint ignore:end */
     };
   });
-}
-
-/**
- * Creates a GitHubRepoList.
- *
- * @param {string} userId The ID of the GitHub user.
- * @param {Array.<GitHubRepo>} gitHubRepos The list of GitHubRepos.
- * @returns {GitHubRepoList}
- * @private
- */
-function createGitHubRepoList(userId, gitHubRepos) {
-  return {
-    userId: userId,
-    repos: gitHubRepos
-  };
 }
 
 /**
@@ -141,7 +128,7 @@ var GitHub = {
         var gitHubRepos = convertToGitHubRepos(response.body);
 
         var finish = function() {
-          var gitHubRepoList = createGitHubRepoList(userId, gitHubRepos);
+          var gitHubRepoList = GitHubHelper.createGitHubRepoList(userId, gitHubRepos);
           callback(gitHubRepoList);
         };
 

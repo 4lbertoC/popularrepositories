@@ -11,8 +11,6 @@
 var Store = require('../core/Store');
 var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
-var GitHubHelper = require('../helpers/GitHubHelper');
-var GitHubRepoListSortParameters = require('../constants/GitHubRepoListSortParameters');
 
 /**
  * @typedef GitHubRepo
@@ -57,11 +55,6 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
 
   if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LIST) {
     _gitHubRepoList = action.repoList;
-    GitHubHelper.sortBy(_gitHubRepoList, [
-      GitHubRepoListSortParameters.STARS,
-      GitHubRepoListSortParameters.WATCHERS,
-      GitHubRepoListSortParameters.FORKS
-    ]);
     GitHubStore.emitChange();
   }
 

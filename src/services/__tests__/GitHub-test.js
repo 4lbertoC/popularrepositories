@@ -12,6 +12,7 @@
 
 jest.dontMock('string-template');
 jest.dontMock('../GitHub');
+jest.dontMock('../../helpers/GitHubHelper');
 
 describe('GitHub', function() {
 

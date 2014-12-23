@@ -11,12 +11,23 @@
 var React = require('react');
 var GitHubActions = require('../../actions/GitHubActions');
 var GitHubStore = require('../../stores/GitHubStore');
+var GitHubHelper = require('../../helpers/GitHubHelper');
+var GitHubRepoListSortParameters = require('../../constants/GitHubRepoListSortParameters');
 
 var RepoListItem = require('./RepoListItem');
 
+function sortGitHubRepoList(gitHubRepoList) {
+  return GitHubHelper.sortBy(gitHubRepoList, [
+      GitHubRepoListSortParameters.STARS,
+      GitHubRepoListSortParameters.WATCHERS,
+      GitHubRepoListSortParameters.FORKS
+    ]);
+}
+
 function getState() {
+  var sortedGitHubRepoList = sortGitHubRepoList(GitHubStore.getGitHubRepoList());
   return {
-    gitHubRepoList: GitHubStore.getGitHubRepoList()
+    gitHubRepoList: sortedGitHubRepoList
   };
 }
 
