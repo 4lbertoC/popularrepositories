@@ -8,6 +8,10 @@
 
 'use strict';
 
+/**
+ * The parameters of a GitHubRepo that can be used to sort
+ * a GitHubRepoList.
+ */
 module.exports = {
 	FORKS: 'forks',
 	STARS: 'stars',

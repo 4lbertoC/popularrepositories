@@ -2,6 +2,8 @@
 
 A page containing the most popular repositories of a GitHub user.
 
+Structure forked from [react-starter-kit](https://github.com/kriasoft/react-starter-kit).
+
 ### Optional parameters
 
 In the current implementation, the `userId` can be changed through the query parameters.

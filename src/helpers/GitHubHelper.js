@@ -26,6 +26,14 @@ var GitHubHelper = {
     };
   },
 
+  /**
+   * Sorts a GitHubRepoList's repos based on the given sort parameters.
+   *
+   * @param {GitHubRepoList} gitHubRepoList The GitHubRepoList to sort.
+   * @param {Array.<GitHubRepoListSortParameters>} An array of parameters based
+   * on which the repos will be sorted.
+   * @returns {GitHubRepoList} The sorted GitHubRepoList.
+   */
 	sortBy(gitHubRepoList, sortParameters) {
     if (!gitHubRepoList || !Array.isArray(sortParameters)) {
       return gitHubRepoList;

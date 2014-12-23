@@ -16,10 +16,23 @@ var GitHubRepoListSortParameters = require('../../constants/GitHubRepoListSortPa
 
 var RepoListItem = require('./RepoListItem');
 
+/**
+ * Filters the repos to be no more than the given maxSize.
+ *
+ * @param {Array.<GitHubRepo>} repos The repos.
+ * @param {number} maxSize The maximum size of the array to return.
+ * @param {Array.<GitHubRepo>}
+ */
 function filterReposMaxSize(repos, maxSize) {
   return maxSize ? repos.slice(0, maxSize) : repos;
 }
 
+/**
+ * Sorts a GitHubRepoList.
+ *
+ * @param {GitHubRepoList} The GitHubRepoList to sort.
+ * @returns {GitHubRepoList} The sorted GitHubRepoList.
+ */
 function sortGitHubRepoList(gitHubRepoList) {
   return GitHubHelper.sortBy(gitHubRepoList, [
       GitHubRepoListSortParameters.STARS,
@@ -28,6 +41,11 @@ function sortGitHubRepoList(gitHubRepoList) {
     ]);
 }
 
+/**
+ * Gets the new state for this component.
+ *
+ * @returns {{gitHubRepoList: GitHubRepoList}}
+ */
 function getState() {
   var sortedGitHubRepoList = sortGitHubRepoList(GitHubStore.getGitHubRepoList());
   return {
@@ -39,6 +57,7 @@ function getState() {
  * A component that displays a user's GitHub repos as a list.
  *
  * @prop {string} gitHubUserId The ID of the user for which to show the repo list.
+ * @prop {number} maxSize The maximum number of items in the list.
  */
 var RepoList = React.createClass({
 

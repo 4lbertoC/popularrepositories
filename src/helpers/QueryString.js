@@ -12,6 +12,10 @@ var querystring = require('querystring');
 
 var QueryStringHelper = {
 
+	/**
+	 * Gets the query parameters from the current URL as a Javascript object.
+	 * @returns {object}
+	 */
 	getQueryParameters() {
 		var rawQueryString;
 

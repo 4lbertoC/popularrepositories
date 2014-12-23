@@ -28,6 +28,7 @@ var constants = {
   }
 };
 
+// Needed to render the RepoListItem.
 var repoListDataCumulativeKey = 0;
 
 /**
