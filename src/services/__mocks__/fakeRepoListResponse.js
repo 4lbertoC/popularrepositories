@@ -2,6 +2,7 @@
  * A fake response received by the GitHub API for the url 
  */
 module.exports = {
+  headers: [],
   body: [{
     'id': 234,
     'name': 'testRepo1',

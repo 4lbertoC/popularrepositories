@@ -34,7 +34,7 @@ var HomePage = React.createClass({
       <div className="container">
         <div className="row">
           <div className="col-md-12 mainList">
-            <h3>blah</h3>
+            <h3>Repository list for {gitHubUserId}</h3>
             <RepoList gitHubUserId={gitHubUserId} />
           </div>
         </div>
