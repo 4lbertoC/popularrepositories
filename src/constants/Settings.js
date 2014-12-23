@@ -18,7 +18,8 @@ module.exports = {
     },
 
     gitHub: {
-    	userId: '4lbertoC'
+    	userId: '4lbertoC',
+      maxRepoListSize: 30
     }
 
   }

@@ -16,6 +16,10 @@ var GitHubRepoListSortParameters = require('../../constants/GitHubRepoListSortPa
 
 var RepoListItem = require('./RepoListItem');
 
+function filterReposMaxSize(repos, maxSize) {
+  return maxSize ? repos.slice(0, maxSize) : repos;
+}
+
 function sortGitHubRepoList(gitHubRepoList) {
   return GitHubHelper.sortBy(gitHubRepoList, [
       GitHubRepoListSortParameters.STARS,
@@ -41,7 +45,8 @@ var RepoList = React.createClass({
   mixins: [GitHubStore.Mixin],
 
   propTypes: {
-    gitHubUserId: React.PropTypes.string.isRequired
+    gitHubUserId: React.PropTypes.string.isRequired,
+    maxSize: React.PropTypes.number
   },
 
   getInitialState() {
@@ -55,19 +60,27 @@ var RepoList = React.createClass({
   render() {
     var gitHubRepoList = this.state.gitHubRepoList;
 
-    /* jshint ignore:start */
-    return gitHubRepoList ? (
-      <ul className="list-group">
-        {gitHubRepoList.repos.map(function(repo) {
-          return (
-            <RepoListItem gitHubRepo={repo} key={repo.key}/>
-          );
-        })}
-      </ul>
-    ) : (
-      <div className="repolist-loading">Loading...</div>
-    );
-    /* jshint ignore:end */
+    if (gitHubRepoList) {
+      var repos = filterReposMaxSize(gitHubRepoList.repos, this.props.maxSize);
+
+      /* jshint ignore:start */
+      return (
+        <ul className="list-group">
+          {repos.map(function(repo) {
+            return (
+              <RepoListItem gitHubRepo={repo} key={repo.key}/>
+            );
+          })}
+        </ul>
+      );
+      /* jshint ignore:end */
+    } else {
+      /* jshint ignore:start */
+      return (
+        <div className="repolist-loading">Loading repos...</div>
+      );
+      /* jshint ignore:end */
+    }    
   },
 
   /**

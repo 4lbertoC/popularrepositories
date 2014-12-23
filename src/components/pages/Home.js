@@ -13,6 +13,7 @@ var PageActions = require('../../actions/PageActions');
 var App = require('../layout/App');
 var QueryStringHelper = require('../../helpers/QueryString');
 var RepoList = require('../layout/RepoList');
+var Settings = require('../../constants/Settings');
 
 var defaultGitHubUserId = require('../../constants/Settings').defaults.gitHub.userId;
 
@@ -35,7 +36,7 @@ var HomePage = React.createClass({
         <div className="row">
           <div className="col-md-12 mainList">
             <h3>Repository list for {gitHubUserId}</h3>
-            <RepoList gitHubUserId={gitHubUserId} />
+            <RepoList gitHubUserId={gitHubUserId} maxSize={Settings.defaults.gitHub.maxRepoListSize} />
           </div>
         </div>
       </div>
