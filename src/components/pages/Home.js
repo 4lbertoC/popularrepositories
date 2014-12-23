@@ -29,13 +29,13 @@ var HomePage = React.createClass({
 
   render() {
     var gitHubUserId = QueryStringHelper.getQueryParameters().userId || defaultGitHubUserId;
+    console.log(gitHubUserId);
 
     return (
       /* jshint ignore:start */
       <div className="container">
         <div className="row">
           <div className="col-md-12 mainList">
-            <h3>Repository list for {gitHubUserId}</h3>
             <RepoList gitHubUserId={gitHubUserId} maxSize={Settings.defaults.gitHub.maxRepoListSize} />
           </div>
         </div>

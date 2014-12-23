@@ -12,6 +12,7 @@ var request = require('superagent');
 var format = require('string-template');
 
 var GitHubHelper = require('../helpers/GitHubHelper');
+var Settings = require('../constants/Settings');
 
 var constants = {
   LINK_MATCHERS: {
@@ -53,6 +54,10 @@ function convertToGitHubRepos(repos) {
   });
 }
 
+function handleError(response) {
+  // TODO error!
+}
+
 /**
  * If the current user has more repos other than those included in the
  * first request, a Link header is appended to the response. This header
@@ -85,6 +90,11 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
     var pendingRequests = [];
 
     var requestCallback = function(response) {
+      if(!response.ok) {
+        handleError(response);
+        return;
+      }
+
       var gitHubRepoList = convertToGitHubRepos(response.body);
       onMoreReposArrived(gitHubRepoList);
 
@@ -101,6 +111,7 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
         pageNumber: i
       });
       var req = request.get(reqUrl)
+        .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
         .end(requestCallback);
       pendingRequests.push(req);
     }
@@ -124,7 +135,13 @@ var GitHub = {
     });
 
     request.get(requestUrl)
+      .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
       .end(response => {
+        if(!response.ok) {
+          handleError(response);
+          return;
+        }
+
         // response.body is the array of repos, as received by GitHub.
         var gitHubRepos = convertToGitHubRepos(response.body);
 
