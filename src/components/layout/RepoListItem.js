@@ -8,7 +8,8 @@
 
 'use strict';
 
-require('./RepoListItem.css');
+// FIXME Webpack loaders are not used in the build process, so the build breaks.
+// require('./RepoListItem.css');
 
 var React = require('react');
 
