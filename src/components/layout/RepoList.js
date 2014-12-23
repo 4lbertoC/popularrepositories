@@ -16,7 +16,7 @@ var RepoListItem = require('./RepoListItem');
 
 function getState() {
   return {
-    gitHubRepoList: GitHubStore.getRepoList()
+    gitHubRepoList: GitHubStore.getGitHubRepoList()
   };
 }
 

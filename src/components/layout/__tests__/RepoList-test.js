@@ -36,7 +36,7 @@ describe('RepoList', function() {
 	    var GitHubStoreMock = require('../../../stores/GitHubStore');
 
 	    // Make it return a fake GitHubRepoList
-	    GitHubStoreMock.getRepoList = jest.genMockFunction().mockReturnValue(require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js'));
+	    GitHubStoreMock.getGitHubRepoList = jest.genMockFunction().mockReturnValue(require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js'));
 
 	    var RepoList = require('../RepoList');
 	    var Component = TestUtils.renderIntoDocument(React.createElement(RepoList, {

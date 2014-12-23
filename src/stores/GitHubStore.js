@@ -11,6 +11,8 @@
 var Store = require('../core/Store');
 var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
+var GitHubHelper = require('../helpers/GitHubHelper');
+var GitHubRepoListSortParameters = require('../constants/GitHubRepoListSortParameters');
 
 /**
  * @typedef GitHubRepo
@@ -31,7 +33,7 @@ var ActionTypes = require('../constants/ActionTypes');
  * @property {string} userId
  * @property {Array.<GitHubRepo>} repos
  */
-var _repoList;
+var _gitHubRepoList;
 
 /**
  * A Store that contains information about a user's GitHub account.
@@ -43,8 +45,8 @@ var GitHubStore = new Store({
    *
    * @returns {GitHubRepoList}
    */
-  getRepoList() {
-    return _repoList;
+  getGitHubRepoList() {
+    return _gitHubRepoList;
   }
 
 });
@@ -54,7 +56,12 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
   var action = payload.action;
 
   if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LIST) {
-    _repoList = action.repoList;
+    _gitHubRepoList = action.repoList;
+    GitHubHelper.sortBy(_gitHubRepoList, [
+      GitHubRepoListSortParameters.STARS,
+      GitHubRepoListSortParameters.WATCHERS,
+      GitHubRepoListSortParameters.FORKS
+    ]);
     GitHubStore.emitChange();
   }
 

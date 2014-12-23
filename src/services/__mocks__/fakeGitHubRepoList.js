@@ -1,3 +1,6 @@
+/*
+ * The expected generated GitHubRepoList for fakeRepoListResponse.js
+ */
 module.exports = {
   userId: 'testUser',
   repos: [{
