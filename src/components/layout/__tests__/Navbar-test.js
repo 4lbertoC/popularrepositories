@@ -10,6 +10,7 @@
 
 'use strict';
 
+jest.dontMock('object-assign'); // Needed for the Dispatcher's dyamic methods.
 jest.dontMock('../Navbar');
 
 describe('Navbar', function() {

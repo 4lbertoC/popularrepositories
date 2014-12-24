@@ -46,8 +46,8 @@ Dispatcher.register((payload) => {
  * Check if Page component has a layout property; and if yes, wrap the page
  * into the specified layout, then mount to document.body.
  */
-function render(page) {
-  var layout = null, child = null, props = {};
+function render(page, props) {
+  var layout = null, child = null;
   while ((layout = page.type.layout || (page.defaultProps && page.defaultProps.layout))) {
     child = React.createElement(page, props, child);
     page = layout;
@@ -60,7 +60,9 @@ function render(page) {
 var routes = {
   '/': () => render(require('./components/pages/Home')),
   '/privacy': () => render(require('./components/pages/Privacy')),
-  '/repo': () => render(require('./components/pages/Repo'))
+  '/repo/:repoId': (repoId) => render(require('./components/pages/Repo'), {
+    repoId: repoId
+  })
 };
 
 // Initialize a router

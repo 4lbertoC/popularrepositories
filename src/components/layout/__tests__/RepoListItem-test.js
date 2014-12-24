@@ -11,6 +11,7 @@
 'use strict';
 
 jest.dontMock('../RepoListItem');
+jest.dontMock('../../common/Link');
 
 describe('RepoListItem', function() {
 

@@ -13,6 +13,7 @@
 jest.dontMock('object-assign'); // Needed for the Dispatcher's dyamic methods.
 jest.dontMock('../RepoList');
 jest.dontMock('../RepoListItem');
+jest.dontMock('../../common/Link');
 
 describe('RepoList', function() {
 

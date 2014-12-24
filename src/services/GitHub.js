@@ -43,6 +43,7 @@ function convertToGitHubRepos(repos) {
     return {
       key: repoListDataCumulativeKey++,
       name: repo.name,
+      id: repo.id,
       ownerUserId: repo.owner.login,
       description: repo.description,
       isFork: repo.fork,

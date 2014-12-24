@@ -6,6 +6,7 @@ module.exports = {
   repos: [{
     key: 0,
     name: 'testRepo1',
+    id: 234,
     ownerUserId: 'testUser',
     description: 'This is a test repo',
     isFork: false,

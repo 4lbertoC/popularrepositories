@@ -17,6 +17,7 @@ var ActionTypes = require('../constants/ActionTypes');
  * @type {Object}
  * @property {number} key Required when iterating through the elements to generate the RepoListItems.
  * @property {string} name The name of the repo.
+ * @property {number} id The ID of the repo.
  * @property {string} ownerUserId The user ID of the owner.
  * @property {string} description The description of the repo.
  * @property {boolean} isFork Whether this repo is a fork.

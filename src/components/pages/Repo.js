@@ -1,4 +1,12 @@
-'use strict';
+/*
+ * Popular Repositories
+ * Copyright (c) 2014 Alberto Congiu (@4lbertoC)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+ 'use strict';
 
 var React = require('react');
 var PageActions = require('../../actions/PageActions');
@@ -19,7 +27,7 @@ var RepoPage = React.createClass({
     return (
       /* jshint ignore:start */
       <div className="container">
-        This is a repo!
+        This is the repo {this.props.repoId}
       </div>
       /* jshint ignore:end */
     );
