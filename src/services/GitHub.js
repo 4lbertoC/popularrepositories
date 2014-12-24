@@ -50,7 +50,8 @@ function convertToGitHubRepos(repos) {
       /* jshint ignore:start */ // Complains about underscore in variable names
       stars: repo.stargazers_count,
       watchers: repo.watchers_count,
-      forks: repo.forks_count
+      forks: repo.forks_count,
+      lastUpdate: repo.updated_at
       /* jshint ignore:end */
     };
   });

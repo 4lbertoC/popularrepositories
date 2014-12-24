@@ -49,6 +49,7 @@
     "less-loader": "^2.0.0",
     "merge-stream": "^0.1.6",
     "minimist": "^1.1.0",
+    "moment": "^2.8.4",
     "protractor": "^1.5.0",
     "psi": "^0.1.6",
     "react-tools": "^0.12.2",

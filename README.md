@@ -14,3 +14,6 @@ For example, you can view the popular repositories of the user _bob_ by appendin
 
 ##### Watchers
 The number of watchers returned by the GitHub API is the same as the stargazers. The correct number should be fetched from `GET /repos/:owner/:repo/subscribers`.
+
+##### URLs
+The react-starter-kit creates a single-page web application. It uses client-side routes that don't work as direct links.
