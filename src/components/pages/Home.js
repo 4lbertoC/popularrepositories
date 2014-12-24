@@ -32,7 +32,7 @@ var HomePage = React.createClass({
 
     return (
       /* jshint ignore:start */
-      <div className="container">
+      <div className="container page">
         <div className="row">
           <div className="col-md-12 mainList">
             <RepoList gitHubUserId={gitHubUserId} maxSize={Settings.defaults.gitHub.maxRepoListSize} />

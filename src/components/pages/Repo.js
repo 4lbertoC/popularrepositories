@@ -38,24 +38,43 @@ var RepoPage = React.createClass({
   },
 
   render() {
+    /* jshint ignore:start */
     if (this.state.gitHubRepo) {
       var gitHubRepo = this.state.gitHubRepo;
 
       return (
-        /* jshint ignore:start */
-        <div className="jumbotron">
-          <h1>{gitHubRepo.name}</h1>
-          <p>Last updated {moment(gitHubRepo.lastUpdate).fromNow()}</p>
+        <div className="container page repo-page">
+          <div className="jumbotron text-center">
+            <h1>{gitHubRepo.name}</h1>
+            <p>Last updated {moment(gitHubRepo.lastUpdate).fromNow()}</p>
+            <p>
+              <span className="badge">
+                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span className="badge-text">{gitHubRepo.stars}</span>
+              </span>
+              <span className="badge">
+                <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <span className="badge-text">{gitHubRepo.watchers}</span>
+              </span>
+              <span className="badge">
+                <span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
+                <span className="badge-text">{gitHubRepo.forks}</span>
+              </span>
+            </p>
+          </div>
+          <div className="well">
+            Sumthin..
+          </div>
         </div>
-        /* jshint ignore:end */
       );
     } else {
       return (
-        <div className="jumbotron">
+        <div className="container">
           <h5>Loading...</h5>
         </div>
       );
     }
+    /* jshint ignore:end */
   },
 
   /**

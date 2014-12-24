@@ -28,7 +28,7 @@ var Navbar = React.createClass({
             <img src="/images/logo-small.png" width="38" height="38" alt="React" />
             <span>Popular Repositories</span>
           </Link>
-          <Link className="navbar-brand row navbar-right" to="/">
+          <Link className="navbar-brand row pull-right" to="/">
             <UserInfo gitHubUserId={gitHubUserId} />
           </Link>
         </div>
