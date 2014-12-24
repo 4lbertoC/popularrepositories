@@ -84,13 +84,13 @@ var RepoList = React.createClass({
 
       /* jshint ignore:start */
       return (
-        <ul className="list-group">
+        <div className="list-group">
           {repos.map(function(repo) {
             return (
               <RepoListItem gitHubRepo={repo} key={repo.key}/>
             );
           })}
-        </ul>
+        </div>
       );
       /* jshint ignore:end */
     } else {

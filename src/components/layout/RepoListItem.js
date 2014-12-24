@@ -12,6 +12,11 @@
 // require('./RepoListItem.css');
 
 var React = require('react');
+var format = require('string-template');
+
+var constants = {
+  REPO_PAGE_URL: '/{ownerUserId}/{repoName}'
+};
 
 /**
  * An item of a RepoList component.
@@ -29,9 +34,13 @@ var RepoListItem = React.createClass({
 
   render() {
     var gitHubRepo = this.props.gitHubRepo;
+    var repoPageUrl = format(constants.REPO_PAGE_URL, {
+      ownerUserId: gitHubRepo.ownerUserId,
+      repoName: gitHubRepo.name
+    });
     /* jshint ignore:start */
     return (
-      <li className="repo-list-item list-group-item">
+      <a className="repo-list-item list-group-item" href={repoPageUrl}>
         <span className="repo-name">{gitHubRepo.name}</span>
         <span className="badge">
           <span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
@@ -45,7 +54,7 @@ var RepoListItem = React.createClass({
           <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
           <span className="badge-text">{gitHubRepo.stars}</span>
         </span>
-      </li>
+      </a>
     );
     /* jshint ignore:end */
   },
