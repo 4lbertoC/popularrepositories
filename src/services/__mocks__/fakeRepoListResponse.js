@@ -1,5 +1,5 @@
 /**
- * A fake response received by the GitHub API for the url 
+ * A fake response received by the GitHub API for the url /users/:username/repos
  */
 module.exports = {
   headers: [],

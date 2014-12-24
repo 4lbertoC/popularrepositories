@@ -24,15 +24,36 @@ function handleRepoList(repoList) {
   });
 }
 
+/**
+ * Handles the GitHubUserInfo received by the GitHub service.
+ *
+ * @param {GitHubUserInfo} userInfo
+ */
+function handleUserInfo(userInfo) {
+  Dispatcher.handleViewAction({
+    actionType: ActionTypes.GITHUB.LOAD_USER_INFO,
+    userInfo: userInfo
+  });
+}
+
 module.exports = {
 
   /**
-   * Load the GitHub repo list for the given user.
+   * Loads the GitHub repo list for the given user.
    *
    * @param {userId} The GitHub user ID.
    */
   loadRepoList(userId) {
     GitHub.getRepoList(userId, handleRepoList);
-  }
+  },
+
+  /**
+   * Loads the GitHubUserInfo for the given user.
+   *
+   * @param {userId} The GitHub user ID.
+   */
+   loadUserInfo(userId) {
+    GitHub.getUserInfo(userId, handleUserInfo);
+   }
 
 };

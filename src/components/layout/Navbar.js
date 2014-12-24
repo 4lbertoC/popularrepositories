@@ -10,10 +10,16 @@
 
 var React = require('react');
 var Link = require('../common/Link');
+var UserInfo = require('./UserInfo');
+var QueryStringHelper = require('../../helpers/QueryString');
+
+var defaultGitHubUserId = require('../../constants/Settings').defaults.gitHub.userId;
 
 var Navbar = React.createClass({
 
   render() {
+    var gitHubUserId = QueryStringHelper.getQueryParameters().userId || defaultGitHubUserId;
+
     return (
       /* jshint ignore:start */
       <div className="navbar-top" role="navigation">
@@ -21,6 +27,9 @@ var Navbar = React.createClass({
           <Link className="navbar-brand row" to="/">
             <img src="/images/logo-small.png" width="38" height="38" alt="React" />
             <span>Popular Repositories</span>
+          </Link>
+          <Link className="navbar-brand row navbar-right" to="/">
+            <UserInfo gitHubUserId={gitHubUserId} />
           </Link>
         </div>
       </div>

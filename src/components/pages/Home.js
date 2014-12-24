@@ -29,7 +29,6 @@ var HomePage = React.createClass({
 
   render() {
     var gitHubUserId = QueryStringHelper.getQueryParameters().userId || defaultGitHubUserId;
-    console.log(gitHubUserId);
 
     return (
       /* jshint ignore:start */

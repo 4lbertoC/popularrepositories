@@ -25,7 +25,8 @@ var constants = {
     PAGE_NUMBER: 'page={pageNumber}'
   },
   REQUEST_TEMPLATES: {
-    REPOS: 'https://api.github.com/users/{userId}/repos'
+    REPOS: 'https://api.github.com/users/{userId}/repos',
+    USER: 'https://api.github.com/users/{userId}'
   }
 };
 
@@ -35,7 +36,7 @@ var repoListDataCumulativeKey = 0;
 /**
  * Generates an array of GitHubRepos from the given array of repos.
  *
- * @param {Array.<object>} repos The repos, as received by GitHub.
+ * @param {Array.<object>} repos The repos, as received from GitHub.
  */
 function convertToGitHubRepos(repos) {
   return repos.map(function(repo) {
@@ -54,6 +55,20 @@ function convertToGitHubRepos(repos) {
   });
 }
 
+/**
+ * Generates a GitHubUserInfo from the given user info.
+ *
+ * @param {object} userInfo The user info, as received from GitHub.
+ */
+function convertToGitHubUserInfo(userInfo) {
+  return {
+    userId: userInfo.login,
+    /* jshint ignore:start */ // Complains about underscore in variable names
+    avatarUrl: userInfo.avatar_url
+    /* jshint ignore:end */
+  };
+}
+
 function handleError(response) {
   // TODO error!
 }
@@ -67,6 +82,12 @@ function handleError(response) {
  */
 function hasMoreRepos(response) {
   return !!response.headers.link;
+}
+
+function createRequest(url, callback) {
+  return request.get(url)
+    .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
+    .end(response => response.ok ? callback(response) : handleError(response));
 }
 
 /**
@@ -90,11 +111,6 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
     var pendingRequests = [];
 
     var requestCallback = function(response) {
-      if(!response.ok) {
-        handleError(response);
-        return;
-      }
-
       var gitHubRepoList = convertToGitHubRepos(response.body);
       onMoreReposArrived(gitHubRepoList);
 
@@ -110,9 +126,7 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
       var reqUrl = format(urlTemplate, {
         pageNumber: i
       });
-      var req = request.get(reqUrl)
-        .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
-        .end(requestCallback);
+      var req = createRequest(reqUrl, requestCallback);
       pendingRequests.push(req);
     }
   }
@@ -127,21 +141,14 @@ var GitHub = {
    * Asynchronously provides a GitHubRepoList for the given userId through the given callback.
    *
    * @param {string} userId The ID of the user for which to request the repo list.
-   * @param {function(GitHubRepoList)} callback The function to call when the GitHubRepoList is retrieved.
+   * @param {function(GitHubRepoList)} callback The function that will be called when the GitHubRepoList is retrieved.
    */
   getRepoList(userId, callback) {
     var requestUrl = format(constants.REQUEST_TEMPLATES.REPOS, {
       userId: userId
     });
 
-    request.get(requestUrl)
-      .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
-      .end(response => {
-        if(!response.ok) {
-          handleError(response);
-          return;
-        }
-
+    createRequest(requestUrl, response => {
         // response.body is the array of repos, as received by GitHub.
         var gitHubRepos = convertToGitHubRepos(response.body);
 
@@ -160,6 +167,23 @@ var GitHub = {
           finish();
         }
       });
+  },
+
+  /**
+   * Asynchronously provides the GitHubUserInfo for the given user through the given callback.
+   *
+   * @param {string} userId The ID of the user for which to request the info.
+   * @param {function(GitHubUserInfo)} callback The function that will be called when the GitHubUserInfo is retrieved.
+   */
+  getUserInfo(userId, callback) {
+    var requestUrl = format(constants.REQUEST_TEMPLATES.USER, {
+      userId: userId
+    });
+
+    createRequest(requestUrl, response => {
+      var gitHubUserInfo = convertToGitHubUserInfo(response.body);
+      callback(gitHubUserInfo);
+    });
   }
 
 };

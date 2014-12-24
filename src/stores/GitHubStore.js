@@ -34,6 +34,14 @@ var ActionTypes = require('../constants/ActionTypes');
 var _gitHubRepoList;
 
 /**
+ * @typedef GitHubUserInfo
+ * @type {Object}
+ * @property {string} userId
+ * @property {string} avatarUrl
+ */
+var _gitHubUserInfo;
+
+/**
  * A Store that contains information about a user's GitHub account.
  */
 var GitHubStore = new Store({
@@ -45,7 +53,16 @@ var GitHubStore = new Store({
    */
   getGitHubRepoList() {
     return _gitHubRepoList;
-  }
+  },
+
+  /**
+   * Gets the current user's info.
+   *
+   * @returns {GitHubUserInfo}
+   */
+   getGitHubUserInfo() {
+     return _gitHubUserInfo;
+   }
 
 });
 
@@ -55,6 +72,9 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
 
   if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LIST) {
     _gitHubRepoList = action.repoList;
+    GitHubStore.emitChange();
+  } else if(action.actionType == ActionTypes.GITHUB.LOAD_USER_INFO) {
+    _gitHubUserInfo = action.userInfo;
     GitHubStore.emitChange();
   }
 

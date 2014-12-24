@@ -9,19 +9,15 @@
 module.exports = {
 
   GITHUB: {
-
-    LOAD_REPO_LIST: 'LOAD_REPO_LIST'
-
+    LOAD_REPO_LIST: 'LOAD_REPO_LIST',
+    LOAD_USER_INFO: 'LOAD_USER_INFO'
   },
 
   NAVIGATION: {
-
     // Route action types
     SET_CURRENT_ROUTE: 'SET_CURRENT_ROUTE',
-
     // Page action types
     SET_CURRENT_PAGE: 'SET_CURRENT_PAGE'
-
   }
 
 };

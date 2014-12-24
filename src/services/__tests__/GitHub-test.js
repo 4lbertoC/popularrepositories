@@ -36,4 +36,24 @@ describe('GitHub', function() {
 
 	});
 
+	describe('getUserInfo(userId, callback)', function() {
+
+		it('asynchronously provides the GitHubUserInfo for the given userId through the given callback', function() {
+			var GitHub = require('../GitHub');
+			// Custom mock, returns fake response.
+			var request = require('superagent');
+
+			var testUserId = 'testUser';
+			// GitHubRepoList expected for the fake response.
+			var expectedGitHubUserInfo = require.requireActual('../__mocks__/fakeGitHubUserInfo.js');
+
+			var myCallback = function(gitHubUserInfo) {
+				expect(gitHubUserInfo).toEqual(expectedGitHubUserInfo);
+			};
+
+			GitHub.getUserInfo(testUserId, myCallback);
+		});
+
+	});
+
 });
