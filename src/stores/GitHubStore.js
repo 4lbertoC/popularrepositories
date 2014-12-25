@@ -43,21 +43,41 @@ var _gitHubRepoList;
 var _gitHubUserInfo;
 
 /**
+ * The list of languages used in a repo, with the relative percentage.
+ *
+ * @typedef GitHubRepoLanguages
+ * @type {Array.<string, string>}
+ */
+
+/**
+ * A map containing the GitHubRepoLanguages of the repos.
+ * The key is in the form 'userId#repoName'.
+ *
+ * @typedef GitHubRepoLanguagesList
+ * @type {Object.<string, GitHubRepoLanguages>}
+ */
+ var _gitHubRepoLanguagesList = {};
+
+/**
  * Finds a repo in a GitHubRepoList.
  *
  * @param {number} repoId The ID of the repo.
  * @param {GitHubRepoList} gitHubRepoList the repo list to search.
  */
-function findRepoInList(repoId, gitHubRepoList) {
+function findRepoInList(userId, repoName, gitHubRepoList) {
   if(gitHubRepoList) {
     var repos = gitHubRepoList.repos;
     for (var i = 0, len = repos.length; i < len; i++) {
       var curRepo = repos[i];
-      if (curRepo.id === repoId) {
+      if (curRepo.ownerUserId === userId && curRepo.name === repoName) {
         return curRepo;
       }
     }
   }
+}
+
+function getRepoKey(userId, repoName) {
+  return userId + '#' + repoName;
 }
 
 /**
@@ -68,11 +88,23 @@ var GitHubStore = new Store({
   /**
    * Gets a GitHub repo by its ID, if present in the store.
    *
-   * @param {number} repoId
+   * @param {string} userId
+   * @param {string} repoName
    * @returns {GitHubRepo}
    */
-  getGitHubRepo(repoId) {
-    return findRepoInList(repoId, _gitHubRepoList);
+  getGitHubRepo(userId, repoName) {
+    return findRepoInList(userId, repoName, _gitHubRepoList);
+  },
+
+  /**
+   * Gets the percentages of the languages used in a GitHub repo.
+   *
+   * @param {string} userId
+   * @param {string} repoName
+   * @returns {object} The languages used. Key is the language name, value is the percentage.
+   */
+  getGitHubRepoLanguages(userId, repoName) {
+    return _gitHubRepoLanguagesList[getRepoKey(userId, repoName)];
   },
 
   /**
@@ -104,6 +136,10 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
     GitHubStore.emitChange();
   } else if (action.actionType == ActionTypes.GITHUB.LOAD_USER_INFO) {
     _gitHubUserInfo = action.userInfo;
+    GitHubStore.emitChange();
+  } else if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LANGUAGES) {
+    var repoKey = getRepoKey(action.userId, action.repoName);
+    _gitHubRepoLanguagesList[repoKey] = action.repoLanguages;
     GitHubStore.emitChange();
   }
 

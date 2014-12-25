@@ -25,6 +25,7 @@ var constants = {
     PAGE_NUMBER: 'page={pageNumber}'
   },
   REQUEST_TEMPLATES: {
+    LANGUAGES: 'https://api.github.com/repos/{userId}/{repoName}/languages',
     REPOS: 'https://api.github.com/users/{userId}/repos',
     USER: 'https://api.github.com/users/{userId}'
   }
@@ -32,6 +33,33 @@ var constants = {
 
 // Needed to render the RepoListItem.
 var repoListDataCumulativeKey = 0;
+
+/**
+ * Generates a GitHubRepoLanguages object from the given languages object.
+ *
+ * @param {GitHubRepoLanguages} repoLanguages The languages object, as received from GitHub.
+ */
+function convertToGitHubRepoLanguages(repoLanguages) {
+  var totalBytes = 0;
+  var percentages = {};
+  var language;
+
+  for (language in repoLanguages) {
+    if (repoLanguages.hasOwnProperty(language)) {
+      var bytes = repoLanguages[language];
+      totalBytes += bytes;
+    }
+  }
+
+  for (language in repoLanguages) {
+    if (repoLanguages.hasOwnProperty(language)) {
+      var percentage = Math.round(repoLanguages[language] * 100 / totalBytes);
+      percentages[language] = percentage + '%';
+    }
+  }
+
+  return percentages;
+}
 
 /**
  * Generates an array of GitHubRepos from the given array of repos.
@@ -71,8 +99,26 @@ function convertToGitHubUserInfo(userInfo) {
   };
 }
 
+/**
+ * Handles the error in the response.
+ *
+ * @param {Response} response The response object.
+ */
 function handleError(response) {
-  // TODO error!
+  // TODO Handle the error and show it to the user.
+}
+
+/**
+ * Performs a GET request to the GitHub API.
+ * 
+ * @param {string} url The URL to get.
+ * @param {function} callback The callback to call when done.
+ * @returns {Request} The request object.
+ */
+function createRequest(url, callback) {
+  return request.get(url)
+    .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
+    .end(response => response.ok ? callback(response) : handleError(response));
 }
 
 /**
@@ -84,12 +130,6 @@ function handleError(response) {
  */
 function hasMoreRepos(response) {
   return !!response.headers.link;
-}
-
-function createRequest(url, callback) {
-  return request.get(url)
-    .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
-    .end(response => response.ok ? callback(response) : handleError(response));
 }
 
 /**
@@ -138,6 +178,21 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
  * Abstraction over the GitHub API v3.
  */
 var GitHub = {
+
+  /**
+   * Asynchronously provides a GitHubRepoLanguages object for the given repo through the given callback.
+   */
+  getRepoLanguages(userId, repoName, callback) {
+    var requestUrl = format(constants.REQUEST_TEMPLATES.LANGUAGES, {
+      userId: userId,
+      repoName: repoName
+    });
+
+    createRequest(requestUrl, response => {
+      var languages = convertToGitHubRepoLanguages(response.body);
+      callback(languages);
+    });
+  },
 
   /**
    * Asynchronously provides a GitHubRepoList for the given userId through the given callback.

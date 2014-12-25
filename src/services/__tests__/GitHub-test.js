@@ -44,7 +44,7 @@ describe('GitHub', function() {
 			var request = require('superagent');
 
 			var testUserId = 'testUser';
-			// GitHubRepoList expected for the fake response.
+			// GitHubUserInfo expected for the fake response.
 			var expectedGitHubUserInfo = require.requireActual('../__mocks__/fakeGitHubUserInfo.js');
 
 			var myCallback = function(gitHubUserInfo) {
@@ -52,6 +52,27 @@ describe('GitHub', function() {
 			};
 
 			GitHub.getUserInfo(testUserId, myCallback);
+		});
+
+	});
+
+	describe('getRepoLanguages(userId, repoName, callback)', function() {
+
+		it('asynchronously provides a GitHubRepoLanguages object for the given repo through the given callback.', function() {
+			var GitHub = require('../GitHub');
+			// Custom mock, returns fake response.
+			var request = require('superagent');
+
+			var testUserId = 'testUser';
+			var testRepoName = 'testRepo1';
+			// GitHubRepoLanguages expected for the fake response.
+			var expectedGitHubRepoLanguages = require.requireActual('../__mocks__/fakeGitHubRepoLanguages.js');
+
+			var myCallback = function(gitHubRepoLanguages) {
+				expect(gitHubRepoLanguages).toEqual(expectedGitHubRepoLanguages);
+			};
+
+			GitHub.getRepoLanguages(testUserId, testRepoName, myCallback);
 		});
 
 	});

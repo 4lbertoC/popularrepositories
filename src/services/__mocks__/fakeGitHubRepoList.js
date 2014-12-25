@@ -12,6 +12,7 @@ module.exports = {
     isFork: false,
     stars: 123,
     watchers: 456,
-    forks: 7
+    forks: 7,
+    lastUpdate: '2013-12-21T18:09:06Z'
   }]
 };

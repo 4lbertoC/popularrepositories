@@ -10,15 +10,18 @@
 
 'use strict';
 
+var fakeRepoLanguagesResponse = require.requireActual('./fakeRepoLanguagesResponse.js');
 var fakeRepoListResponse = require.requireActual('./fakeRepoListResponse.js');
 var fakeUserInfoResponse = require.requireActual('./fakeUserInfoResponse.js');
 
 var constants = {
 	FAKE_URL: {
+		REPO_LANGUAGES: 'repoLanguages',
 		REPO_LIST: 'repoList',
-		USER_INFO: 'userInfo'
+		USER_INFO: 'userInfo',
 	},
 	URL_REGEX: {
+		REPO_LANGUAGES: /https:\/\/api\.github\.com\/repos\/.+?\/.+?\/languages/,
 		REPO_LIST: /https:\/\/api\.github\.com\/users\/.+?\/repos/,
 		USER_INFO: /https:\/\/api\.github\.com\/users\/.+?[\/]?$/
 	}
@@ -36,6 +39,8 @@ var superagentMock = {
 			this.url = constants.FAKE_URL.REPO_LIST;
 		} else if (url.match(constants.URL_REGEX.USER_INFO)) {
 			this.url = constants.FAKE_URL.USER_INFO;
+		} else if (url.match(constants.URL_REGEX.REPO_LANGUAGES)) {
+			this.url = constants.FAKE_URL.REPO_LANGUAGES;
 		}
 		return this;
 	}),
@@ -45,7 +50,13 @@ var superagentMock = {
 			callback(fakeRepoListResponse);
 		} else if (this.url === constants.FAKE_URL.USER_INFO) {
 			callback(fakeUserInfoResponse);
+		} else if (this.url === constants.FAKE_URL.REPO_LANGUAGES) {
+			callback(fakeRepoLanguagesResponse);
 		}
+		// The requested API has not been mocked.
+		callback({
+			ok: false
+		});
 	})
 };
 

@@ -10,14 +10,15 @@
 
 var React = require('react');
 var PageActions = require('../../actions/PageActions');
+var GitHubActions = require('../../actions/GitHubActions');
 var App = require('../layout/App');
 var Link = require('../common/Link');
 var GitHubStore = require('../../stores/GitHubStore');
 var moment = require('moment');
 
-function getState(repoId) {
+function getState(userId, repoName) {
   return {
-    gitHubRepo: GitHubStore.getGitHubRepo(+repoId)
+    gitHubRepo: GitHubStore.getGitHubRepo(userId, repoName)
   };
 }
 
@@ -30,11 +31,12 @@ var RepoPage = React.createClass({
   },
 
   getInitialState() {
-    return getState(this.props.repoId);
+    return getState(this.props.userId, this.props.repoName);
   },
 
   componentWillMount() {
     PageActions.set({title: 'Repository'});
+    GitHubActions.loadRepoLanguages(this.props.userId, this.props.repoName);
   },
 
   render() {
@@ -81,7 +83,7 @@ var RepoPage = React.createClass({
    * Event handler for 'change' events coming from the GitHubStore.
    */
   onChange() {
-    this.setState(getState(this.props.repoId));
+    this.setState(getState(this.props.userId, this.props.repoName));
   }
 
 });

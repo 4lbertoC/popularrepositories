@@ -13,6 +13,20 @@ var ActionTypes = require('../constants/ActionTypes');
 var GitHub = require('../services/GitHub');
 
 /**
+ * Handles the GitHubRepoLanguages received by the GitHub service.
+ *
+ * @param {GitHubRepoLanguages} repoLanguages The repo languages.
+ */
+function handleRepoLanguages(userId, repoName, repoLanguages) {
+  Dispatcher.handleViewAction({
+    actionType: ActionTypes.GITHUB.LOAD_REPO_LANGUAGES,
+    userId: userId,
+    repoName: repoName,
+    repoLanguages: repoLanguages
+  });
+}
+
+/**
  * Handles the GitHubRepoList received by the GitHub service.
  *
  * @param {GitHubRepoList} repoList The repo list.
@@ -37,6 +51,16 @@ function handleUserInfo(userInfo) {
 }
 
 module.exports = {
+
+  /**
+   * Loads the languages for the given repo.
+   *
+   * @param {userId} The GitHub user ID.
+   * @param {repoName} The GitHub repo name.
+   */
+  loadRepoLanguages(userId, repoName) {
+    GitHub.getRepoLanguages(userId, repoName, repoLanguages => handleRepoLanguages(userId, repoName, repoLanguages));
+  },
 
   /**
    * Loads the GitHub repo list for the given user.

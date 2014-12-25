@@ -60,8 +60,9 @@ function render(page, props) {
 var routes = {
   '/': () => render(require('./components/pages/Home')),
   '/privacy': () => render(require('./components/pages/Privacy')),
-  '/repo/:repoId': (repoId) => render(require('./components/pages/Repo'), {
-    repoId: repoId
+  '/repo/:userId/:repoName': (userId, repoName) => render(require('./components/pages/Repo'), {
+    userId: userId,
+    repoName: repoName
   })
 };
 

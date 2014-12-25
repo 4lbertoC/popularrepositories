@@ -18,7 +18,7 @@ var format = require('string-template');
 
 var constants = {
   DEFAULT_PAGE: '#',
-  REPO_PAGE_URL: '/repo/{repoId}'
+  REPO_PAGE_URL: '/repo/{userId}/{repoName}'
 };
 
 /**
@@ -37,7 +37,8 @@ var RepoListItem = React.createClass({
   render() {
     var gitHubRepo = this.props.gitHubRepo;
     var repoPageUrl = format(constants.REPO_PAGE_URL, {
-      repoId: gitHubRepo.id
+      userId: gitHubRepo.ownerUserId,
+      repoName: gitHubRepo.name
     }) || constants.DEFAULT_PAGE;
     
     /* jshint ignore:start */
