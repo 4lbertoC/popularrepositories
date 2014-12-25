@@ -68,6 +68,9 @@ var RepoPage = React.createClass({
                 <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
               </span>
             </p>
+            <p className="repo-description">
+              {gitHubRepo.description}
+            </p>
           </div>
           <div className="well languages">
             <LanguageList gitHubRepoLanguages={gitHubRepoLanguages} />
