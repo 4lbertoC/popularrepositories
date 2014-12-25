@@ -18,7 +18,7 @@ module.exports = {
     },
 
     gitHub: {
-    	userId: '4lbertoC',
+    	userId: 'marijnh',
       maxRepoListSize: 30,
       oAuthToken: '9e5af3a9a0710712b59a7c0e81f7d5ebd34eb55c'
     }
