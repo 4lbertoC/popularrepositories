@@ -41,9 +41,10 @@ var LanguageList = React.createClass({
       <div className="text-center language-list">
         {mapObject(gitHubRepoLanguages, (percentage, languageName) => {
           return (
-            <span className="language" key={languageName}>
-              <h1>{languageName}</h1> <h3>{percentage}</h3>
-            </span>
+            <div className="language" key={languageName}>
+              <h1 className="language-name">{languageName}</h1>
+              <h3 className="language-percentage">{percentage}</h3>
+            </div>
           );
         })}
       </div>
