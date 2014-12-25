@@ -55,17 +55,17 @@ var RepoPage = React.createClass({
             <h1>{gitHubRepo.name}</h1>
             <p>Last updated {moment(gitHubRepo.lastUpdate).fromNow()}</p>
             <p>
-              <span className="badge">
+              <span className="badge repo-badge">
                 <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <span className="badge-text">{gitHubRepo.stars}</span>
+                <span className="badge-text repo-badge-text">{gitHubRepo.stars}</span>
               </span>
-              <span className="badge">
+              <span className="badge repo-badge">
                 <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                <span className="badge-text">{gitHubRepo.watchers}</span>
+                <span className="badge-text repo-badge-text">{gitHubRepo.watchers}</span>
               </span>
-              <span className="badge">
+              <span className="badge repo-badge">
                 <span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
-                <span className="badge-text">{gitHubRepo.forks}</span>
+                <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
               </span>
             </p>
           </div>
