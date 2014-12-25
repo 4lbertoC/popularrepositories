@@ -53,7 +53,7 @@ function convertToGitHubRepoLanguages(repoLanguages) {
 
   for (language in repoLanguages) {
     if (repoLanguages.hasOwnProperty(language)) {
-      var percentage = Math.round(repoLanguages[language] * 100 / totalBytes);
+      var percentage = (repoLanguages[language] * 100 / totalBytes).toFixed(2);
       percentages[language] = percentage + '%';
     }
   }

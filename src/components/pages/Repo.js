@@ -12,13 +12,15 @@ var React = require('react');
 var PageActions = require('../../actions/PageActions');
 var GitHubActions = require('../../actions/GitHubActions');
 var App = require('../layout/App');
+var LanguageList = require('../layout/LanguageList');
 var Link = require('../common/Link');
 var GitHubStore = require('../../stores/GitHubStore');
 var moment = require('moment');
 
 function getState(userId, repoName) {
   return {
-    gitHubRepo: GitHubStore.getGitHubRepo(userId, repoName)
+    gitHubRepo: GitHubStore.getGitHubRepo(userId, repoName),
+    gitHubRepoLanguages: GitHubStore.getGitHubRepoLanguages(userId, repoName)
   };
 }
 
@@ -41,8 +43,11 @@ var RepoPage = React.createClass({
 
   render() {
     /* jshint ignore:start */
-    if (this.state.gitHubRepo) {
+    var backButton = (<Link to="/">Back to list</Link>);
+
+    if (this.state.gitHubRepo && this.state.gitHubRepoLanguages) {
       var gitHubRepo = this.state.gitHubRepo;
+      var gitHubRepoLanguages = this.state.gitHubRepoLanguages;
 
       return (
         <div className="container page repo-page">
@@ -64,9 +69,10 @@ var RepoPage = React.createClass({
               </span>
             </p>
           </div>
-          <div className="well">
-            Sumthin..
+          <div className="well languages">
+            <LanguageList gitHubRepoLanguages={gitHubRepoLanguages} />
           </div>
+          {backButton}
         </div>
       );
     } else {

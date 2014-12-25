@@ -17,17 +17,19 @@ var QueryStringHelper = {
 	 * @returns {object}
 	 */
 	getQueryParameters() {
-		var rawQueryString;
+		var rawQueryString = this.getQueryString();
 
+		return querystring.parse(rawQueryString);
+	},
+
+	getQueryString() {
 		if (typeof window === 'undefined') {
 			// We are not in the browser.
 			// Webpack breaks without this check.
-			rawQueryString = '';
+			return '';
 		} else {
-			rawQueryString = window.location.search.substr(1);
+			return window.location.search.substr(1);
 		}
-
-		return querystring.parse(rawQueryString);
 	}
 
 };

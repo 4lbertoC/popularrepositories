@@ -40,7 +40,7 @@ var RepoListItem = React.createClass({
       userId: gitHubRepo.ownerUserId,
       repoName: gitHubRepo.name
     }) || constants.DEFAULT_PAGE;
-    
+
     /* jshint ignore:start */
     return (
       <Link className="repo-list-item list-group-item" to={repoPageUrl}>

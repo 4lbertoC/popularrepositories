@@ -10,6 +10,7 @@
 
 var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
+var QueryString = require('../helpers/QUeryString');
 
 module.exports = {
 
@@ -18,6 +19,12 @@ module.exports = {
    * @param {string} route Supply a route value, such as `todos/completed`.
    */
   setRoute(route) {
+    var queryString = QueryString.getQueryString();
+
+    if (queryString) {
+      route += '?' + queryString;
+    }
+
     Dispatcher.handleViewAction({
       actionType: ActionTypes.NAVIGATION.SET_CURRENT_ROUTE,
       route: route
