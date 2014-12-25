@@ -23,10 +23,10 @@ var Navbar = React.createClass({
     return (
       /* jshint ignore:start */
       <div className="navbar-top" role="navigation">
-        <div className="container">
+        <div className="container navbar-container">
           <Link className="navbar-brand row" to="/">
-            <img src="/images/logo-small.png" width="38" height="38" alt="React" />
-            <span>Popular Repositories</span>
+            <i className="fa fa-github-alt fa-lg navbar-icon"></i>
+            <span className="navbar-title">Popular Repositories</span>
           </Link>
           <Link className="navbar-brand row pull-right" to="/">
             <UserInfo gitHubUserId={gitHubUserId} />

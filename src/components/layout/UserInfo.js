@@ -51,7 +51,7 @@ var UserInfo = React.createClass({
       return (
         <span className="user-info">
           <img className="user-avatar" src={gitHubUserInfo.avatarUrl} />
-          <span className="user-id"><small>{gitHubUserInfo.userId}</small></span>
+          <span className="user-id">{gitHubUserInfo.userId}</span>
         </span>
       );
     } else {

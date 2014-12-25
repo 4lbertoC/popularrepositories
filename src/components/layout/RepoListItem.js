@@ -23,8 +23,6 @@ var constants = {
 
 /**
  * An item of a RepoList component.
- * Uses glyphicon-cutlery for "fork", as the right one is not provided
- * by default with bootstrap.
  *
  * @prop {string} name The name of the repo.
  */
@@ -45,17 +43,17 @@ var RepoListItem = React.createClass({
     return (
       <Link className="repo-list-item list-group-item" to={repoPageUrl}>
         <span className="repo-name">{gitHubRepo.name}</span>
-        <span className="badge">
-          <span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
-          <span className="badge-text">{gitHubRepo.forks}</span>
+        <span className="badge repo-badge-alt">
+          <span className="fa fa-code-fork fa-lg" aria-hidden="true"></span>
+          <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
         </span>
-        <span className="badge">
+        <span className="badge repo-badge-alt">
           <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          <span className="badge-text">{gitHubRepo.watchers}</span>
+          <span className="badge-text repo-badge-text">{gitHubRepo.watchers}</span>
         </span>
-        <span className="badge">
+        <span className="badge repo-badge-alt">
           <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span className="badge-text">{gitHubRepo.stars}</span>
+          <span className="badge-text repo-badge-text">{gitHubRepo.stars}</span>
         </span>
       </Link>
     );

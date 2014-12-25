@@ -64,7 +64,7 @@ var RepoPage = React.createClass({
                 <span className="badge-text repo-badge-text">{gitHubRepo.watchers}</span>
               </span>
               <span className="badge repo-badge">
-                <span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
+                <span className="glyphicon fa fa-code-fork fa-lg repo-badge-icon" aria-hidden="true"></span>
                 <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
               </span>
             </p>
