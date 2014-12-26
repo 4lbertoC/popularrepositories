@@ -163,7 +163,7 @@ gulp.task('services', function() {
 // CSS style sheets
 gulp.task('styles', function() {
   src.styles = 'src/styles/**/*.{css,less}';
-  return gulp.src('src/styles/bootstrap.less')
+  return gulp.src('src/styles/all.less')
     .pipe($.plumber())
     .pipe($.less({
       sourceMap: !RELEASE,
