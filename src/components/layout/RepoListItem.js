@@ -44,7 +44,7 @@ var RepoListItem = React.createClass({
       <Link className="repo-list-item list-group-item" to={repoPageUrl}>
         <span className="repo-name">{gitHubRepo.name}</span>
         <span className="badge repo-badge-alt">
-          <span className="fa fa-code-fork fa-lg" aria-hidden="true"></span>
+          <span className="fa fa-code-fork fa-lg repo-badge-icon" aria-hidden="true"></span>
           <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
         </span>
         <span className="badge repo-badge-alt">
