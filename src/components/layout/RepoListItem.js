@@ -14,6 +14,7 @@
 var React = require('react');
 var RouteActions = require('../../actions/RouteActions');
 var Link = require('../common/Link');
+var RepoBadgeList = require('./RepoBadgeList');
 var format = require('string-template');
 
 var constants = {
@@ -24,7 +25,7 @@ var constants = {
 /**
  * An item of a RepoList component.
  *
- * @prop {string} name The name of the repo.
+ * @prop {GitHubRepo} gitHubRepo
  */
 var RepoListItem = React.createClass({
 
@@ -43,18 +44,7 @@ var RepoListItem = React.createClass({
     return (
       <Link className="repo-list-item list-group-item" to={repoPageUrl}>
         <span className="repo-name">{gitHubRepo.name}</span>
-        <span className="badge repo-badge-alt">
-          <span className="fa fa-code-fork fa-lg repo-badge-icon" aria-hidden="true"></span>
-          <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
-        </span>
-        <span className="badge repo-badge-alt">
-          <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          <span className="badge-text repo-badge-text">{gitHubRepo.watchers}</span>
-        </span>
-        <span className="badge repo-badge-alt">
-          <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-          <span className="badge-text repo-badge-text">{gitHubRepo.stars}</span>
-        </span>
+        <RepoBadgeList altStyle={true} gitHubRepo={gitHubRepo} />
       </Link>
     );
     /* jshint ignore:end */

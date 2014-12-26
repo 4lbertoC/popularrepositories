@@ -1,0 +1,28 @@
+.repo-badge {
+	height: 20px;
+	vertical-align: middle;
+	background: #F9F9F9;
+	color: #88A959;
+	margin: 5px;
+
+	.repo-badge-icon-fix {
+		vertical-align: 0;
+		position: relative;
+		top: 2px;
+	}
+	
+	.repo-badge-text {
+		margin-left: 5px;
+	}
+}
+
+.repo-badge-list-alt {
+
+	.repo-badge {
+		&:extend(.repo-badge all);
+		background: transparent;
+		color: #C9C9C3;
+		margin: 0;
+	}
+
+}

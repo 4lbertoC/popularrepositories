@@ -33,14 +33,14 @@ describe('LanguageList', function() {
   });
 
   it('displays the languages of the repo, and the respective percentages', function() {
-    var languageElement = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language');
-    expect(languageElement).toBeDefined();
+    var languageElements = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language');
+    expect(languageElements.length).toBeGreaterThan(0);
 
-    var languageNameElement = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language-name');
-    expect(languageNameElement).toBeDefined();
+    var languageNameElements = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language-name');
+    expect(languageNameElements.length).toBeGreaterThan(0);
 
-    var percentageElement = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language-percentage');
-    expect(percentageElement).toBeDefined();
+    var percentageElements = TestUtils.scryRenderedDOMComponentsWithClass(Component, 'language-percentage');
+    expect(percentageElements.length).toBeGreaterThan(0);
   });
 
 });

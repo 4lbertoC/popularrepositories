@@ -11,10 +11,11 @@
 var React = require('react');
 var PageActions = require('../../actions/PageActions');
 var GitHubActions = require('../../actions/GitHubActions');
+var GitHubStore = require('../../stores/GitHubStore');
 var App = require('../layout/App');
 var LanguageList = require('../layout/LanguageList');
 var Link = require('../common/Link');
-var GitHubStore = require('../../stores/GitHubStore');
+var RepoBadgeList = require('../layout/RepoBadgeList');
 var moment = require('moment');
 
 function getState(userId, repoName) {
@@ -55,18 +56,7 @@ var RepoPage = React.createClass({
             <h1>{gitHubRepo.name}</h1>
             <p>Last updated {moment(gitHubRepo.lastUpdate).fromNow()}</p>
             <p>
-              <span className="badge repo-badge">
-                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <span className="badge-text repo-badge-text">{gitHubRepo.stars}</span>
-              </span>
-              <span className="badge repo-badge">
-                <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                <span className="badge-text repo-badge-text">{gitHubRepo.watchers}</span>
-              </span>
-              <span className="badge repo-badge">
-                <span className="glyphicon fa fa-code-fork fa-lg repo-badge-icon" aria-hidden="true"></span>
-                <span className="badge-text repo-badge-text">{gitHubRepo.forks}</span>
-              </span>
+              <RepoBadgeList gitHubRepo={gitHubRepo} />
             </p>
             <p className="repo-description">
               {gitHubRepo.description}
