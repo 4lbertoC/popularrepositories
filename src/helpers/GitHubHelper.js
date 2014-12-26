@@ -8,7 +8,9 @@
 
 'use strict';
 
-
+/**
+ * Helper for the GitHub service.
+ */
 var GitHubHelper = {
 
   /**

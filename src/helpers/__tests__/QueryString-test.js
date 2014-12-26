@@ -35,4 +35,16 @@ describe('QueryString', function() {
 
 	});
 
+	describe('getQueryString()', function() {
+
+		it('returns the current URL query string', function() {
+			var queryString = require('../QueryString');
+			var testQueryString = 'foo=bar';
+
+			window.location.search = '?' + testQueryString;
+
+			expect(queryString.getQueryString()).toBe(testQueryString);
+		});
+	});
+
 });

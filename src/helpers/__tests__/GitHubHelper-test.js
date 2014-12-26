@@ -31,7 +31,7 @@ describe('GitHubHelper', function() {
 			GitHubRepoListSortParameters = require('../../constants/GitHubRepoListSortParameters');
 		});
 
-		it('sorts in place the repo list based on the given parameters', function() {
+		it('returns the sorted repo list based on the given parameters', function() {
 			testGitHubRepoList = testCaseData[0];
 			sortedGitHubRepoList = GitHubHelper.sortBy(testGitHubRepoList, [GitHubRepoListSortParameters.STARS]);
 		});
