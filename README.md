@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/4lbertoC/popularrepositories.svg)](https://travis-ci.org/4lbertoC/popularrepositories)
+
 # Popular Repositories
 
 A page containing the most popular repositories of a GitHub user.
