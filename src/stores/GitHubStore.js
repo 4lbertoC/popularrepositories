@@ -13,6 +13,8 @@ var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
 
 /**
+ * Represents a GitHub repository.
+ *
  * @typedef GitHubRepo
  * @type {Object}
  * @property {number} key Required when iterating through the elements to generate the RepoListItems.
@@ -27,6 +29,8 @@ var ActionTypes = require('../constants/ActionTypes');
  */
 
 /**
+ * A list of GitHub repositories.
+ *
  * @typedef GitHubRepoList
  * @type {Object}
  * @property {string} userId
@@ -35,6 +39,8 @@ var ActionTypes = require('../constants/ActionTypes');
 var _gitHubRepoList;
 
 /**
+ * Contains information about a GitHub user.
+ *
  * @typedef GitHubUserInfo
  * @type {Object}
  * @property {string} userId
@@ -76,6 +82,12 @@ function findRepoInList(userId, repoName, gitHubRepoList) {
   }
 }
 
+/**
+ * Generates a unique key for a given user's repository.
+ *
+ * @param {string} userId
+ * @param {string} repoName
+ */
 function getRepoKey(userId, repoName) {
   return userId + '#' + repoName;
 }
