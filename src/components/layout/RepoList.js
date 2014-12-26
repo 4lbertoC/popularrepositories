@@ -15,6 +15,7 @@ var GitHubHelper = require('../../helpers/GitHubHelper');
 var GitHubRepoListSortParameters = require('../../constants/GitHubRepoListSortParameters');
 
 var RepoListItem = require('./RepoListItem');
+var LoadingIcon = require('../common/LoadingIcon');
 
 /**
  * Filters the repos to be no more than the given maxSize.
@@ -96,7 +97,9 @@ var RepoList = React.createClass({
     } else {
       /* jshint ignore:start */
       return (
-        <div className="repolist-loading">Loading repos...</div>
+        <div className="repolist-loading">
+          <LoadingIcon />
+        </div>
       );
       /* jshint ignore:end */
     }    

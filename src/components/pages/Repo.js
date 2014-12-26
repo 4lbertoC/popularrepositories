@@ -12,10 +12,13 @@ var React = require('react');
 var PageActions = require('../../actions/PageActions');
 var GitHubActions = require('../../actions/GitHubActions');
 var GitHubStore = require('../../stores/GitHubStore');
+
 var App = require('../layout/App');
-var LanguageList = require('../layout/LanguageList');
 var Link = require('../common/Link');
+var LoadingIcon = require('../common/LoadingIcon');
+var LanguageList = require('../layout/LanguageList');
 var RepoBadgeList = require('../layout/RepoBadgeList');
+
 var moment = require('moment');
 
 function getState(userId, repoName) {
@@ -70,8 +73,8 @@ var RepoPage = React.createClass({
       );
     } else {
       return (
-        <div className="container">
-          <h5>Loading...</h5>
+        <div className="container repo-page-loading">
+          <LoadingIcon />
         </div>
       );
     }
