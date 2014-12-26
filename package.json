@@ -1,9 +1,9 @@
 {
-  "name": "react-starter-kit",
+  "name": "popularrepositories",
   "private": true,
-  "version": "0.0.0",
-  "description": "React / Flux  Starter Kit",
-  "repository": "https://github.com/kriasoft/react-starter-kit",
+  "version": "1.0.0",
+  "description": "GitHub user's popular repositories",
+  "repository": "https://github.com/4lbertoC/popularrepositories",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^3.3.1",

@@ -30,6 +30,9 @@ Structure forked from [react-starter-kit](https://github.com/kriasoft/react-star
 ├── gulpfile.js                 # Configuration file for automated builds
 └── package.json                # The list of 3rd party libraries and utilities
 ```
+### Requirements
+
+[Node.js](http://nodejs.org/) has to be installed on your machine. The other dependencies are fetched by [npm](https://www.npmjs.com/).
 
 ### Getting Started
 
