@@ -4,13 +4,15 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
+ *
+ * Modified by @4lbertoC
  */
 
 'use strict';
 
 var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
-var QueryString = require('../helpers/QUeryString');
+var QueryString = require('../helpers/QueryString');
 
 module.exports = {
 
