@@ -11,6 +11,7 @@
 'use strict';
 
 jest.dontMock('../GitHubHelper');
+jest.dontMock('../../models/GitHubModel');
 jest.dontMock('../../constants/GitHubRepoListSortParameters');
 
 function isOrderCorrect(gitHubRepoList) {

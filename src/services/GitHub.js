@@ -11,7 +11,7 @@
 var request = require('superagent');
 var format = require('string-template');
 
-var GitHubHelper = require('../helpers/GitHubHelper');
+var GitHubModel = require('../models/GitHubModel');
 var Settings = require('../constants/Settings');
 
 var constants = {
@@ -30,72 +30,6 @@ var constants = {
     USER: 'https://api.github.com/users/{userId}'
   }
 };
-
-/**
- * Generates a GitHubRepoLanguages object from the given languages object.
- *
- * @param {GitHubRepoLanguages} repoLanguages The languages object, as received from GitHub.
- */
-function convertToGitHubRepoLanguages(repoLanguages) {
-  var totalBytes = 0;
-  var percentages = {};
-  var language;
-
-  // Calculate total size
-  for (language in repoLanguages) {
-    if (repoLanguages.hasOwnProperty(language)) {
-      var bytes = repoLanguages[language];
-      totalBytes += bytes;
-    }
-  }
-
-  // Calculate percentages
-  for (language in repoLanguages) {
-    if (repoLanguages.hasOwnProperty(language)) {
-      var percentage = (repoLanguages[language] * 100 / totalBytes).toFixed(2);
-      percentages[language] = percentage + '%';
-    }
-  }
-
-  return percentages;
-}
-
-/**
- * Generates an array of GitHubRepos from the given array of repos.
- *
- * @param {Array.<object>} repos The repos, as received from GitHub.
- */
-function convertToGitHubRepos(repos) {
-  return repos.map(function(repo) {
-    return {
-      name: repo.name,
-      id: repo.id,
-      ownerUserId: repo.owner.login,
-      description: repo.description,
-      isFork: repo.fork,
-      /* jshint ignore:start */ // JSHint complains about underscore in variable names
-      stars: repo.stargazers_count,
-      watchers: repo.watchers_count,
-      forks: repo.forks_count,
-      lastUpdate: repo.updated_at
-      /* jshint ignore:end */
-    };
-  });
-}
-
-/**
- * Generates a GitHubUserInfo from the given user info.
- *
- * @param {object} userInfo The user info, as received from GitHub.
- */
-function convertToGitHubUserInfo(userInfo) {
-  return {
-    userId: userInfo.login,
-    /* jshint ignore:start */ // JSHint complains about underscore in variable names
-    avatarUrl: userInfo.avatar_url
-    /* jshint ignore:end */
-  };
-}
 
 /**
  * Handles the error in the response.
@@ -180,7 +114,7 @@ function getLastPageNumber(linkHeader) {
  */
 function createMoreGitHubReposCallback(pendingRequests, onMoreReposArrived, onFinish) {
   var req = function(response) {
-    var gitHubRepos = convertToGitHubRepos(response.body);
+    var gitHubRepos = GitHubModel.createGitHubRepos(response.body);
     onMoreReposArrived(gitHubRepos);
 
     // Remove request from pendingRequests.
@@ -255,7 +189,7 @@ var GitHub = {
     });
 
     createRequest(requestUrl, response => {
-      var languages = convertToGitHubRepoLanguages(response.body);
+      var languages = GitHubModel.createGitHubRepoLanguages(response.body);
       callback(languages);
     });
   },
@@ -274,10 +208,10 @@ var GitHub = {
 
     createRequest(requestUrl, response => {
         // response.body is the array of repos, as received by GitHub.
-        var gitHubRepos = convertToGitHubRepos(response.body);
+        var gitHubRepos = GitHubModel.createGitHubRepos(response.body);
 
         var finish = function() {
-          var gitHubRepoList = GitHubHelper.createGitHubRepoList(userId, gitHubRepos);
+          var gitHubRepoList = GitHubModel.createGitHubRepoList(userId, gitHubRepos);
           callback(gitHubRepoList);
         };
 
@@ -305,7 +239,7 @@ var GitHub = {
     });
 
     createRequest(requestUrl, response => {
-      var gitHubUserInfo = convertToGitHubUserInfo(response.body);
+      var gitHubUserInfo = GitHubModel.createGitHubUserInfo(response.body);
       callback(gitHubUserInfo);
     });
   }

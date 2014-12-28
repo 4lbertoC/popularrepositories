@@ -8,25 +8,12 @@
 
 'use strict';
 
+var GitHubModel = require('../models/GitHubModel');
+
 /**
  * Helper for the GitHub service.
  */
 var GitHubHelper = {
-
-  /**
-   * Creates a GitHubRepoList.
-   *
-   * @param {string} userId The ID of the GitHub user.
-   * @param {Array.<GitHubRepo>} gitHubRepos The list of GitHubRepos.
-   * @returns {GitHubRepoList}
-   * @private
-   */
-  createGitHubRepoList(userId, gitHubRepos) {
-    return {
-      userId: userId,
-      repos: gitHubRepos
-    };
-  },
 
   /**
    * Sorts a GitHubRepoList's repos based on the given sort parameters.
@@ -54,7 +41,7 @@ var GitHubHelper = {
     };
 
     var reposClone = gitHubRepoList.repos.slice(0);
-    return this.createGitHubRepoList(gitHubRepoList.userId, reposClone.sort(compareFunc));
+    return GitHubModel.createGitHubRepoList(gitHubRepoList.userId, reposClone.sort(compareFunc));
 	}
 
 };

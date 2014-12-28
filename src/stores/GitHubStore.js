@@ -13,54 +13,17 @@ var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
 
 /**
- * Represents a GitHub repository.
- *
- * @typedef GitHubRepo
- * @type {Object}
- * @property {number} key Required when iterating through the elements to generate the RepoListItems.
- * @property {string} name The name of the repo.
- * @property {number} id The ID of the repo.
- * @property {string} ownerUserId The user ID of the owner.
- * @property {string} description The description of the repo.
- * @property {boolean} isFork Whether this repo is a fork.
- * @property {number} stars The stars count.
- * @property {number} watchers The watchers count.
- * @property {number} forks The forks count.
- */
-
-/**
- * A list of GitHub repositories.
- *
- * @typedef GitHubRepoList
- * @type {Object}
- * @property {string} userId
- * @property {Array.<GitHubRepo>} repos
+ * @type {GitHubRepoList}
  */
 var _gitHubRepoList;
 
 /**
- * Contains information about a GitHub user.
- *
- * @typedef GitHubUserInfo
- * @type {Object}
- * @property {string} userId
- * @property {string} avatarUrl
+ * @type {GitHubUserInfo}
  */
 var _gitHubUserInfo;
 
 /**
- * The list of languages used in a repo, with the relative percentage.
- *
- * @typedef GitHubRepoLanguages
- * @type {Array.<string, string>}
- */
-
-/**
- * A map containing the GitHubRepoLanguages of the repos.
- * The key is in the form 'userId#repoName'.
- *
- * @typedef GitHubRepoLanguagesList
- * @type {Object.<string, GitHubRepoLanguages>}
+ * @type {GitHubRepoLanguagesList}
  */
  var _gitHubRepoLanguagesList = {};
 
