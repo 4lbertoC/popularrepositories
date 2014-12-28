@@ -22,7 +22,7 @@ describe('LanguageList', function() {
 
     LanguageList = require('../LanguageList');
     Component = TestUtils.renderIntoDocument(React.createElement(LanguageList, {
-      gitHubRepoLanguages: require.requireActual('../../../services/__mocks__/fakeGitHubRepoLanguages.js')
+      gitHubRepoLanguages: require.requireActual('../../../models/__mocks__/fakeGitHubRepoLanguages.js')
     }));
     
   });

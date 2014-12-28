@@ -21,7 +21,7 @@ describe('RepoListItem', function() {
 
 	    var RepoListItem = require('../RepoListItem');
 	    var Component = TestUtils.renderIntoDocument(React.createElement(RepoListItem, {
-	    	gitHubRepo: require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js').repos[0]
+	    	gitHubRepo: require.requireActual('../../../models/__mocks__/fakeGitHubRepoList.js').repos[0]
 	    }));
 
 	    var element = TestUtils.findRenderedDOMComponentWithClass(Component, 'repo-list-item');

@@ -22,7 +22,7 @@ describe('RepoBadgeList', function() {
 
 	    RepoBadgeList = require('../RepoBadgeList');
 	    Component = TestUtils.renderIntoDocument(React.createElement(RepoBadgeList, {
-	    	gitHubRepo: require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js').repos[0]
+	    	gitHubRepo: require.requireActual('../../../models/__mocks__/fakeGitHubRepoList.js').repos[0]
 	    }));
 	});
 
@@ -33,7 +33,7 @@ describe('RepoBadgeList', function() {
 
 	it('can have an alternative style when "altStyle" property is true', function() {
 		var AltComponent = TestUtils.renderIntoDocument(React.createElement(RepoBadgeList, {
-	    	gitHubRepo: require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js').repos[0],
+	    	gitHubRepo: require.requireActual('../../../models/__mocks__/fakeGitHubRepoList.js').repos[0],
 	    	altStyle: true
 	    }));
 

@@ -50,7 +50,8 @@ function sortGitHubRepoList(gitHubRepoList) {
 function getState() {
   var sortedGitHubRepoList = sortGitHubRepoList(GitHubStore.getGitHubRepoList());
   return {
-    gitHubRepoList: sortedGitHubRepoList
+    gitHubRepoList: sortedGitHubRepoList,
+    gitHubError: GitHubStore.getGitHubError()
   };
 }
 
@@ -79,13 +80,14 @@ var RepoList = React.createClass({
 
   render() {
     var gitHubRepoList = this.state.gitHubRepoList;
+    var gitHubError = this.state.gitHubError;
 
     if (gitHubRepoList) {
       var repos = filterReposMaxSize(gitHubRepoList.repos, this.props.maxSize);
 
       /* jshint ignore:start */
       return (
-        <div className="list-group">
+        <div className="repo-list list-group">
           {repos.map(function(repo) {
             return (
               <RepoListItem gitHubRepo={repo} key={repo.id}/>
@@ -94,10 +96,14 @@ var RepoList = React.createClass({
         </div>
       );
       /* jshint ignore:end */
+    } else if(gitHubError) {
+      /* jshint ignore:start */
+      return (<div className="repo-list"></div>);
+      /* jshint ignore:end */
     } else {
       /* jshint ignore:start */
       return (
-        <div className="repolist-loading">
+        <div className="repo-list repo-list-loading">
           <LoadingIcon />
         </div>
       );

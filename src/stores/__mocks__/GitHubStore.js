@@ -12,8 +12,11 @@
 
 var GitHubStoreMock = jest.genMockFromModule('../GitHubStore');
 
-// Needed because it's created dynamically by the Store constructor
+// Needed because they are created dynamically by the Store constructor
+GitHubStoreMock.getGitHubError = jest.genMockFunction().mockImplementation(function() {});
 GitHubStoreMock.getGitHubRepoList = jest.genMockFunction().mockImplementation(function() {});
 GitHubStoreMock.getGitHubUserInfo = jest.genMockFunction().mockImplementation(function() {});
+GitHubStoreMock.getGitHubRepo = jest.genMockFunction().mockImplementation(function() {});
+GitHubStoreMock.getGitHubRepoLanguages = jest.genMockFunction().mockImplementation(function() {});
 
 module.exports = GitHubStoreMock;

@@ -13,6 +13,7 @@
 var fakeRepoLanguagesResponse = require.requireActual('./fakeRepoLanguagesResponse.js');
 var fakeRepoListResponse = require.requireActual('./fakeRepoListResponse.js');
 var fakeUserInfoResponse = require.requireActual('./fakeUserInfoResponse.js');
+var fakeErrorResponse = require.requireActual('./fakeErrorResponse.js');
 
 var constants = {
 	FAKE_URL: {
@@ -52,11 +53,9 @@ var superagentMock = {
 			callback(fakeUserInfoResponse);
 		} else if (this.url === constants.FAKE_URL.REPO_LANGUAGES) {
 			callback(fakeRepoLanguagesResponse);
+		} else {
+			callback(fakeErrorResponse);
 		}
-		// The requested API has not been mocked.
-		callback({
-			ok: false
-		});
 	})
 };
 

@@ -41,7 +41,7 @@ describe('UserInfo', function() {
 		var GitHubStoreMock = require('../../../stores/GitHubStore');
 
 	    // Make it return a fake GitHubRepoList
-	    GitHubStoreMock.getGitHubUserInfo = jest.genMockFunction().mockReturnValue(require.requireActual('../../../services/__mocks__/fakeGitHubUserInfo.js'));
+	    GitHubStoreMock.getGitHubUserInfo = jest.genMockFunction().mockReturnValue(require.requireActual('../../../models/__mocks__/fakeGitHubUserInfo.js'));
 
 		UserInfo = require('../UserInfo');
 	    Component = TestUtils.renderIntoDocument(React.createElement(UserInfo, {

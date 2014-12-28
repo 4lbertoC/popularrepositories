@@ -36,8 +36,11 @@ var constants = {
  *
  * @param {Response} response The response object.
  */
-function handleError(response) {
-  // TODO Handle the error and show it to the user.
+function handleError(response, errorCallback) {
+  var error = {
+    message: response.body.message
+  };
+  errorCallback(error);
 }
 
 /**
@@ -47,11 +50,11 @@ function handleError(response) {
  * @param {function} callback The callback to call when done.
  * @returns {Request} The request object.
  */
-function createRequest(url, callback) {
+function createRequest(url, callback, errorCallback) {
   return request.get(url)
     // Authentication allows more requests per hour
     .auth(Settings.defaults.gitHub.oAuthToken, 'x-oauth-basic')
-    .end(response => response.ok ? callback(response) : handleError(response));
+    .end(response => response.ok ? callback(response) : handleError(response, errorCallback));
 }
 
 /**
@@ -136,13 +139,14 @@ function createMoreGitHubReposCallback(pendingRequests, onMoreReposArrived, onFi
  * @param {number} lastPageNumber The last page to request.
  * @param {Array.<Request>} pendingRequests The array of pending requests.
  * @param {function(response)} callback The callback for each request.
+ * @param {function(Error)} errorCallback The function that will be called in case of error.
  */
-function sendMoreGitHubReposRequests(urlTemplate, nextPageNumber, lastPageNumber, pendingRequests, callback) {
+function sendMoreGitHubReposRequests(urlTemplate, nextPageNumber, lastPageNumber, pendingRequests, callback, errorCallback) {
     for(var i = nextPageNumber; i <= lastPageNumber; i++) {
       var reqUrl = format(urlTemplate, {
         pageNumber: i
       });
-      var req = createRequest(reqUrl, callback);
+      var req = createRequest(reqUrl, callback, errorCallback);
       pendingRequests.push(req);
     }
 }
@@ -154,8 +158,9 @@ function sendMoreGitHubReposRequests(urlTemplate, nextPageNumber, lastPageNumber
  * the URLs to the next and last request to perform.
  * @param {function(Array.<GitHubRepo>)} onMoreReposArrived Handles the newly arrived GitHubRepos.
  * @param {function()} onFinish Called when all the remaining repos have been fetched.
+ * @param {function(Error)} errorCallback The function that will be called in case of error.
  */
-function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
+function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish, errorCallback) {
   var linkHeader = response.headers.link;
   
   var urlTemplate = getReposPageUrlTemplate(linkHeader);
@@ -165,7 +170,7 @@ function requestMoreGitHubRepos(response, onMoreReposArrived, onFinish) {
     var pendingRequests = [];
 
     var callback = createMoreGitHubReposCallback(pendingRequests, onMoreReposArrived, onFinish);
-    sendMoreGitHubReposRequests(urlTemplate, nextPageNumber, lastPageNumber, pendingRequests, callback);
+    sendMoreGitHubReposRequests(urlTemplate, nextPageNumber, lastPageNumber, pendingRequests, callback, errorCallback);
   }
 }
 
@@ -180,9 +185,10 @@ var GitHub = {
    * @param {string} userId The ID of the user of the repo.
    * @param {string} repoName The name of the repo.
    * @param {function(GitHubRepoLanguages)} callback The function that will be called when the
-   GitHubRepoList is retrieved.
+   * GitHubRepoList is retrieved.
+   * @param {function(Error)} errorCallback The function that will be called in case of error.
    */
-  getRepoLanguages(userId, repoName, callback) {
+  getRepoLanguages(userId, repoName, callback, errorCallback) {
     var requestUrl = format(constants.REQUEST_TEMPLATES.LANGUAGES, {
       userId: userId,
       repoName: repoName
@@ -191,7 +197,7 @@ var GitHub = {
     createRequest(requestUrl, response => {
       var languages = GitHubModel.createGitHubRepoLanguages(response.body);
       callback(languages);
-    });
+    }, errorCallback);
   },
 
   /**
@@ -200,8 +206,9 @@ var GitHub = {
    * @param {string} userId The ID of the user for which to request the repo list.
    * @param {function(GitHubRepoList)} callback The function that will be called when the GitHubRepoList
    * is retrieved.
+   * @param {function(Error)} errorCallback The function that will be called in case of error.
    */
-  getRepoList(userId, callback) {
+  getRepoList(userId, callback, errorCallback) {
     var requestUrl = format(constants.REQUEST_TEMPLATES.REPOS, {
       userId: userId
     });
@@ -220,20 +227,22 @@ var GitHub = {
         };
 
         if (hasMoreRepos(response)) {
-          requestMoreGitHubRepos(response, addMoreGitHubRepos, finish);
+          requestMoreGitHubRepos(response, addMoreGitHubRepos, finish, errorCallback);
         } else {
           finish();
         }
-      });
+      }, errorCallback);
   },
 
   /**
    * Asynchronously provides the GitHubUserInfo for the given user through the given callback.
    *
    * @param {string} userId The ID of the user for which to request the info.
-   * @param {function(GitHubUserInfo)} callback The function that will be called when the GitHubUserInfo is retrieved.
+   * @param {function(GitHubUserInfo)} callback The function that will be called when the
+   * GitHubUserInfo is retrieved.
+   * @param {function(Error)} errorCallback The function that will be called in case of error.
    */
-  getUserInfo(userId, callback) {
+  getUserInfo(userId, callback, errorCallback) {
     var requestUrl = format(constants.REQUEST_TEMPLATES.USER, {
       userId: userId
     });
@@ -241,7 +250,7 @@ var GitHub = {
     createRequest(requestUrl, response => {
       var gitHubUserInfo = GitHubModel.createGitHubUserInfo(response.body);
       callback(gitHubUserInfo);
-    });
+    }, errorCallback);
   }
 
 };

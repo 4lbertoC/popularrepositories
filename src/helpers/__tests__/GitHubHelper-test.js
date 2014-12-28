@@ -24,7 +24,7 @@ describe('GitHubHelper', function() {
 
 	describe('sortBy(gitHubRepoList, sortParameters)', function() {
 
-		var testCaseData = require.requireActual('../../services/__mocks__/fakeGitHubRepoList2.js').testCaseData;
+		var testCaseData = require.requireActual('../../models/__mocks__/fakeGitHubRepoList2.js').testCaseData;
 		var GitHubHelper, GitHubRepoListSortParameters, testGitHubRepoList, sortedGitHubRepoList;
 
 		beforeEach(function() {

@@ -26,7 +26,7 @@ describe('RepoList', function() {
 	    	gitHubUserId: 'testUser'
 	    }));
 
-	    var loadingElement = TestUtils.findRenderedDOMComponentWithClass(Component, 'repolist-loading');
+	    var loadingElement = TestUtils.findRenderedDOMComponentWithClass(Component, 'repo-list-loading');
 	    expect(loadingElement).toBeDefined();
 	});
 
@@ -37,7 +37,7 @@ describe('RepoList', function() {
 	    var GitHubStoreMock = require('../../../stores/GitHubStore');
 
 	    // Make it return a fake GitHubRepoList
-	    GitHubStoreMock.getGitHubRepoList = jest.genMockFunction().mockReturnValue(require.requireActual('../../../services/__mocks__/fakeGitHubRepoList.js'));
+	    GitHubStoreMock.getGitHubRepoList = jest.genMockFunction().mockReturnValue(require.requireActual('../../../models/__mocks__/fakeGitHubRepoList.js'));
 
 	    var RepoList = require('../RepoList');
 	    var Component = TestUtils.renderIntoDocument(React.createElement(RepoList, {
@@ -46,6 +46,25 @@ describe('RepoList', function() {
 
 	    var repoListItemElement = TestUtils.findRenderedDOMComponentWithClass(Component, 'repo-list-item');
 	    expect(repoListItemElement).toBeDefined();
+	});
+
+	it('shows nothing if there is an error and no data has been loaded', function() {
+		var React = require('react/addons');
+	    var TestUtils = React.addons.TestUtils;
+
+	    var GitHubStoreMock = require('../../../stores/GitHubStore');
+
+	    // Make it return a fake GitHubError
+	    GitHubStoreMock.getGitHubError = jest.genMockFunction().mockReturnValue(require.requireActual('../../../models/__mocks__/fakeGitHubError.js'));
+
+	    var RepoList = require('../RepoList');
+	    var Component = TestUtils.renderIntoDocument(React.createElement(RepoList, {
+	    	gitHubUserId: 'testUser'
+	    }));
+
+	    var emptyRepoListElement = TestUtils.findRenderedDOMComponentWithClass(Component, 'repo-list');
+	    expect(emptyRepoListElement).toBeDefined();
+	    expect(emptyRepoListElement.getDOMNode().children.length).toBe(0);
 	});
 
 });

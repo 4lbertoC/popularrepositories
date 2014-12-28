@@ -13,6 +13,21 @@ var ActionTypes = require('../constants/ActionTypes');
 var GitHub = require('../services/GitHub');
 
 /**
+ * Handles a request error.
+ *
+ * @param {GitHubError} error The error received by GitHub.
+ * @param {string} actionType The action that would have been triggered.
+ */
+function handleError(error, actionType) {
+  Dispatcher.handleViewAction({
+    actionType: ActionTypes.GITHUB.ERROR,
+    error: error
+  });
+}
+
+// TODO create other handleWhatError
+
+/**
  * Handles the GitHubRepoLanguages received by the GitHub service.
  *
  * @param {GitHubRepoLanguages} repoLanguages The repo languages.
@@ -59,7 +74,10 @@ module.exports = {
    * @param {repoName} The GitHub repo name.
    */
   loadRepoLanguages(userId, repoName) {
-    GitHub.getRepoLanguages(userId, repoName, repoLanguages => handleRepoLanguages(userId, repoName, repoLanguages));
+    GitHub.getRepoLanguages(userId,
+      repoName,
+      repoLanguages => handleRepoLanguages(userId, repoName, repoLanguages),
+      error => handleError(error, ActionTypes.GITHUB.LOAD_REPO_LANGUAGES));
   },
 
   /**
@@ -68,7 +86,9 @@ module.exports = {
    * @param {userId} The GitHub user ID.
    */
   loadRepoList(userId) {
-    GitHub.getRepoList(userId, handleRepoList);
+    GitHub.getRepoList(userId,
+      handleRepoList,
+      error => handleError(error, ActionTypes.GITHUB.LOAD_REPO_LIST));
   },
 
   /**
@@ -77,7 +97,9 @@ module.exports = {
    * @param {userId} The GitHub user ID.
    */
    loadUserInfo(userId) {
-    GitHub.getUserInfo(userId, handleUserInfo);
+    GitHub.getUserInfo(userId,
+      handleUserInfo,
+      error => handleError(error, ActionTypes.GITHUB.LOAD_USER_INFO));
    }
 
 };

@@ -52,6 +52,14 @@
  */
 
 /**
+ * An error received by the GitHub service.
+ *
+ * @typedef GitHubError
+ * @type {object}
+ * @property {string} message
+ */
+
+/**
  * Custom GitHub models used in the application.
  */
 var GitHubModel = {

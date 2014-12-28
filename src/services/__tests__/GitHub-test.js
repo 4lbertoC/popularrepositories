@@ -6,7 +6,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-/* global jest, describe, it, expect */
+/* global jest, describe, it, expect, beforeEach */
 
 'use strict';
 
@@ -16,63 +16,123 @@ jest.dontMock('../../models/GitHubModel');
 
 describe('GitHub', function() {
 
-	describe('getRepoList(userId, callback)', function() {
+	var GitHub, request, testUserId, testRepoName;
+
+	beforeEach(function() {
+		GitHub = require('../GitHub');
+		// Custom mock, returns fake response.
+		request = require('superagent');
+
+		testUserId = 'testUser';
+		testRepoName = 'testRepo1';
+		
+	});
+
+	describe('getRepoList(userId, callback, errorCallback)', function() {
 
 		it('asynchronously provides a GitHubRepoList for the given userId through the given callback', function() {
-			var GitHub = require('../GitHub');
-			// Custom mock, returns fake response.
-			var request = require('superagent');
-
-			var testUserId = 'testUser';
 			// GitHubRepoList expected for the fake response.
-			var expectedGitHubRepoList = require.requireActual('../__mocks__/fakeGitHubRepoList.js');
+			var expectedGitHubRepoList = require.requireActual('../../models/__mocks__/fakeGitHubRepoList.js');
 
-			var myCallback = function(gitHubRepoList) {
+			var callback = jest.genMockFunction().mockImplementation(function(gitHubRepoList) {
 				expect(gitHubRepoList).toEqual(expectedGitHubRepoList);
-			};
+			});
 
-			GitHub.getRepoList(testUserId, myCallback);
+			var errorCallback = jest.genMockFunction();
+
+			GitHub.getRepoList(testUserId, callback, errorCallback);
+			expect(callback).toBeCalled();
+			expect(errorCallback).not.toBeCalled();
+		});
+
+		it('calls the error callback if there is an error', function() {
+			// Mocking the get method so that it returns an error.
+			request.get = jest.genMockFunction().mockImplementation(function(url) {
+				this.url = 'error';
+				return this;
+			});
+
+			var callback = jest.genMockFunction();
+
+			var errorCallback = jest.genMockFunction().mockImplementation(function(error) {
+				expect(error).toEqual(require.requireActual('../../models/__mocks__/fakeGitHubError.js'));
+			});
+
+			GitHub.getRepoList(testUserId, callback, errorCallback);
+			expect(callback).not.toBeCalled();
+			expect(errorCallback).toBeCalled();
 		});
 
 	});
 
-	describe('getUserInfo(userId, callback)', function() {
+	describe('getUserInfo(userId, callback, errorCallback)', function() {
 
 		it('asynchronously provides the GitHubUserInfo for the given userId through the given callback', function() {
-			var GitHub = require('../GitHub');
-			// Custom mock, returns fake response.
-			var request = require('superagent');
-
-			var testUserId = 'testUser';
 			// GitHubUserInfo expected for the fake response.
-			var expectedGitHubUserInfo = require.requireActual('../__mocks__/fakeGitHubUserInfo.js');
+			var expectedGitHubUserInfo = require.requireActual('../../models/__mocks__/fakeGitHubUserInfo.js');
 
-			var myCallback = function(gitHubUserInfo) {
+			var callback = function(gitHubUserInfo) {
 				expect(gitHubUserInfo).toEqual(expectedGitHubUserInfo);
 			};
 
-			GitHub.getUserInfo(testUserId, myCallback);
+			var errorCallback = jest.genMockFunction();
+
+			GitHub.getUserInfo(testUserId, callback, errorCallback);
+			expect(errorCallback).not.toBeCalled();
+		});
+
+		it('calls the error callback if there is an error', function() {
+			// Mocking the get method so that it returns an error.
+			request.get = jest.genMockFunction().mockImplementation(function(url) {
+				this.url = 'error';
+				return this;
+			});
+
+			var callback = jest.genMockFunction();
+
+			var errorCallback = jest.genMockFunction().mockImplementation(function(error) {
+				expect(error).toEqual(require.requireActual('../../models/__mocks__/fakeGitHubError.js'));
+			});
+
+			GitHub.getUserInfo(testUserId, callback, errorCallback);
+			expect(callback).not.toBeCalled();
+			expect(errorCallback).toBeCalled();
 		});
 
 	});
 
-	describe('getRepoLanguages(userId, repoName, callback)', function() {
+	describe('getRepoLanguages(userId, repoName, callback, errorCallback)', function() {
 
 		it('asynchronously provides a GitHubRepoLanguages object for the given repo through the given callback.', function() {
-			var GitHub = require('../GitHub');
-			// Custom mock, returns fake response.
-			var request = require('superagent');
-
-			var testUserId = 'testUser';
-			var testRepoName = 'testRepo1';
 			// GitHubRepoLanguages expected for the fake response.
-			var expectedGitHubRepoLanguages = require.requireActual('../__mocks__/fakeGitHubRepoLanguages.js');
+			var expectedGitHubRepoLanguages = require.requireActual('../../models/__mocks__/fakeGitHubRepoLanguages.js');
 
-			var myCallback = function(gitHubRepoLanguages) {
+			var callback = function(gitHubRepoLanguages) {
 				expect(gitHubRepoLanguages).toEqual(expectedGitHubRepoLanguages);
 			};
 
-			GitHub.getRepoLanguages(testUserId, testRepoName, myCallback);
+			var errorCallback = jest.genMockFunction();
+
+			GitHub.getRepoLanguages(testUserId, testRepoName, callback, errorCallback);
+			expect(errorCallback).not.toBeCalled();
+		});
+
+		it('calls the error callback if there is an error', function() {
+			// Mocking the get method so that it returns an error.
+			request.get = jest.genMockFunction().mockImplementation(function(url) {
+				this.url = 'error';
+				return this;
+			});
+
+			var callback = jest.genMockFunction();
+
+			var errorCallback = jest.genMockFunction().mockImplementation(function(error) {
+				expect(error).toEqual(require.requireActual('../../models/__mocks__/fakeGitHubError.js'));
+			});
+
+			GitHub.getRepoLanguages(testUserId, testRepoName, callback, errorCallback);
+			expect(callback).not.toBeCalled();
+			expect(errorCallback).toBeCalled();
 		});
 
 	});

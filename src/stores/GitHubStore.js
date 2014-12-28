@@ -13,6 +13,11 @@ var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
 
 /**
+ * @type {GitHubError}
+ */
+var _gitHubError;
+
+/**
  * @type {GitHubRepoList}
  */
 var _gitHubRepoList;
@@ -61,6 +66,15 @@ function getRepoKey(userId, repoName) {
 var GitHubStore = new Store({
 
   /**
+   * Gets the last error received when performing a request to GitHub.
+   *
+   * @returns {GitHubError}
+   */
+  getGitHubError() {
+    return _gitHubError;
+  },
+
+  /**
    * Gets a GitHub repo by its ID, if present in the store.
    *
    * @param {string} userId
@@ -106,17 +120,19 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
 
   var action = payload.action;
 
-  if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LIST) {
+  _gitHubError = null;
+
+  if (action.actionType === ActionTypes.GITHUB.LOAD_REPO_LIST) {
     _gitHubRepoList = action.repoList;
-    GitHubStore.emitChange();
-  } else if (action.actionType == ActionTypes.GITHUB.LOAD_USER_INFO) {
+  } else if (action.actionType === ActionTypes.GITHUB.LOAD_USER_INFO) {
     _gitHubUserInfo = action.userInfo;
-    GitHubStore.emitChange();
-  } else if (action.actionType == ActionTypes.GITHUB.LOAD_REPO_LANGUAGES) {
+  } else if (action.actionType === ActionTypes.GITHUB.LOAD_REPO_LANGUAGES) {
     var repoKey = getRepoKey(action.userId, action.repoName);
     _gitHubRepoLanguagesList[repoKey] = action.repoLanguages;
-    GitHubStore.emitChange();
+  } else if (action.actionType === ActionTypes.GITHUB.ERROR) {
+    _gitHubError = action.error;
   }
+  GitHubStore.emitChange();
 
   return true; // No errors.  Needed by promise in Dispatcher.
 
