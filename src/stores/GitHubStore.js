@@ -35,7 +35,8 @@ var _gitHubUserInfo;
 /**
  * Finds a repo in a GitHubRepoList.
  *
- * @param {number} repoId The ID of the repo.
+ * @param {string} userId The ID of the user.
+ * @param {string} repoName The name of the repo.
  * @param {GitHubRepoList} gitHubRepoList the repo list to search.
  */
 function findRepoInList(userId, repoName, gitHubRepoList) {
@@ -120,6 +121,7 @@ GitHubStore.dispatcherToken = Dispatcher.register(payload => {
 
   var action = payload.action;
 
+  // Reset the error if the last action was successful.
   _gitHubError = null;
 
   if (action.actionType === ActionTypes.GITHUB.LOAD_REPO_LIST) {
