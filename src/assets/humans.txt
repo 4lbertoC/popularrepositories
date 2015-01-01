@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Alberto Congiu -- @4lbertoC
 
 # THANKS
 
-    <name>
+    Konstantin Tarkus, for making react-starter-kit
 
 # TECHNOLOGY COLOPHON
 
