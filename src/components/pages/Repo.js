@@ -47,8 +47,6 @@ var RepoPage = React.createClass({
 
   render() {
     /* jshint ignore:start */
-    var backButton = (<Link to="/">Back to list</Link>);
-
     if (this.state.gitHubRepo && this.state.gitHubRepoLanguages) {
       var gitHubRepo = this.state.gitHubRepo;
       var gitHubRepoLanguages = this.state.gitHubRepoLanguages;
@@ -68,7 +66,7 @@ var RepoPage = React.createClass({
           <div className="well languages">
             <LanguageList gitHubRepoLanguages={gitHubRepoLanguages} />
           </div>
-          {backButton}
+          <Link to="/">Back to list</Link>
         </div>
       );
     } else {
