@@ -23,6 +23,7 @@ Structure forked from [react-starter-kit](https://github.com/kriasoft/react-star
 │   ├── /constants/             # Constant values used across the app
 │   ├── /core/                  # Core components (Flux dispatcher, base classes, utilities)
 │   ├── /helpers/               # Custom utilities for the application
+│   ├── /models/                # Definitions of data types
 │   ├── /services/              # Wrappers for remote services
 │   ├── /stores/                # Stores contain the application state and logic
 │   ├── /styles/                # The styles to be included in the app
