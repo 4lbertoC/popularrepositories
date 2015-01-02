@@ -25,6 +25,9 @@ function getState() {
   };
 }
 
+/**
+ * The default layout of a page.
+ */
 var DefaultLayout = React.createClass({
 
   mixins: [PageStore.Mixin],

@@ -18,18 +18,21 @@ var RepoListItem = require('./RepoListItem');
 var LoadingIcon = require('../common/LoadingIcon');
 
 /**
- * Filters the repos to be no more than the given maxSize.
+ * Returns the first <code>n</code> elements of a given array.
+ * If <code>n</code> is not defined or greater than the length of the
+ * array, the entire array will be returned.
  *
- * @param {Array.<GitHubRepo>} repos The repos.
- * @param {number} maxSize The maximum size of the array to return.
- * @param {Array.<GitHubRepo>}
+ * @param {Array} array The input array.
+ * @param {number} n The maximum number of elements to return.
+ * @returns {Array} A copy of the input array containing only its first
+ * <code>n</code> elements.
  */
-function filterReposMaxSize(repos, maxSize) {
-  return maxSize ? repos.slice(0, maxSize) : repos;
+function getFirstNElements(array, n) {
+  return n ? array.slice(0, n) : array;
 }
 
 /**
- * Sorts a GitHubRepoList.
+ * Returns a sorted copy of a GitHubRepoList.
  *
  * @param {GitHubRepoList} The GitHubRepoList to sort.
  * @returns {GitHubRepoList} The sorted GitHubRepoList.
@@ -45,7 +48,7 @@ function sortGitHubRepoList(gitHubRepoList) {
 /**
  * Gets the new state for this component.
  *
- * @returns {{gitHubRepoList: GitHubRepoList}}
+ * @returns {{gitHubRepoList: GitHubRepoList, gitHubError: GitHubError}}
  */
 function getState() {
   var sortedGitHubRepoList = sortGitHubRepoList(GitHubStore.getGitHubRepoList());
@@ -83,7 +86,7 @@ var RepoList = React.createClass({
     var gitHubError = this.state.gitHubError;
 
     if (gitHubRepoList) {
-      var repos = filterReposMaxSize(gitHubRepoList.repos, this.props.maxSize);
+      var repos = getFirstNElements(gitHubRepoList.repos, this.props.maxSize);
 
       /* jshint ignore:start */
       return (

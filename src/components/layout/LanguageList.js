@@ -10,12 +10,22 @@
 
 var React = require('react');
 
+/**
+ * Like Array.map(), but on an object's own properties.
+ * Returns an array.
+ *
+ * @param {object} obj The object to call the function on.
+ * @param {function(object, number)} func The function to call
+ * on each of the object's properties. It takes as input parameters
+ * the value and the key of the current property.
+ * @returns {Array} The result.
+ */
 function mapObject(obj, func) {
   var results = [];
   if (obj) {
-    for(var i in obj) {
-      if (obj.hasOwnProperty(i)) {
-        results.push(func(obj[i], i));
+    for(var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        results.push(func(obj[key], key));
       }
     }
   }

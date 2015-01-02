@@ -14,7 +14,7 @@ var GitHubStore = require('../../stores/GitHubStore');
 /**
  * Gets the new state for this component.
  *
- * @returns {{gitHubRepoList: GitHubRepoList}}
+ * @returns {{gitHubError: GitHubError}}
  */
 function getState() {
   return {

@@ -11,7 +11,8 @@
 var React = require('react/addons');
 
 /**
- * A list of badges for a GitHubRepo.
+ * A list of badges that show the count of stargazers, watchers and
+ * forks of a GitHubRepo.
  *
  * @prop {GitHubRepo} gitHubRepo.
  */
