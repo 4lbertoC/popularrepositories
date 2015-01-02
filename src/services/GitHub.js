@@ -40,14 +40,17 @@ function handleError(response, errorCallback) {
   var error = {
     message: response.body.message
   };
-  errorCallback(error);
+  if (typeof errorCallback === 'function') {
+    errorCallback(error);
+  }
 }
 
 /**
  * Performs a GET request to the GitHub API.
  * 
  * @param {string} url The URL to get.
- * @param {function} callback The callback to call when done.
+ * @param {!function} callback The function to call when done.
+ * @param {function} errorCallback The function to call on error.
  * @returns {Request} The request object.
  */
 function createRequest(url, callback, errorCallback) {
