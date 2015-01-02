@@ -107,13 +107,14 @@ describe('GitHub', function() {
 			// GitHubRepoLanguages expected for the fake response.
 			var expectedGitHubRepoLanguages = require.requireActual('../../models/__mocks__/fakeGitHubRepoLanguages.js');
 
-			var callback = function(gitHubRepoLanguages) {
+			var callback = jest.genMockFunction().mockImplementation(function(gitHubRepoLanguages) {
 				expect(gitHubRepoLanguages).toEqual(expectedGitHubRepoLanguages);
-			};
+			});
 
 			var errorCallback = jest.genMockFunction();
 
 			GitHub.getRepoLanguages(testUserId, testRepoName, callback, errorCallback);
+			expect(callback).toBeCalled();
 			expect(errorCallback).not.toBeCalled();
 		});
 
