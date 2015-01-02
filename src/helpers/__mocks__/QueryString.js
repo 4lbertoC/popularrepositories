@@ -10,7 +10,7 @@
 
 'use strict';
 
-var QueryStringHelperMock = jest.genMockFromModule('../QueryString');
+var QueryStringHelperMock = jest.genMockFromModule('../QueryStringHelper');
 
 QueryStringHelperMock.getQueryParameters = jest.genMockFunction().mockReturnValue({
 	userId: 'testUser'

@@ -13,7 +13,7 @@
 var React = require('react');
 var Link = require('../common/Link');
 var UserInfo = require('./UserInfo');
-var QueryStringHelper = require('../../helpers/QueryString');
+var QueryStringHelper = require('../../helpers/QueryStringHelper');
 
 var defaultGitHubUserId = require('../../constants/Settings').defaults.gitHub.userId;
 

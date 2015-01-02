@@ -12,7 +12,7 @@
 
 var Dispatcher = require('../core/Dispatcher');
 var ActionTypes = require('../constants/ActionTypes');
-var QueryString = require('../helpers/QueryString');
+var QueryStringHelper = require('../helpers/QueryStringHelper');
 
 module.exports = {
 
@@ -21,7 +21,7 @@ module.exports = {
    * @param {string} route Supply a route value, such as `todos/completed`.
    */
   setRoute(route) {
-    var queryString = QueryString.getQueryString();
+    var queryString = QueryStringHelper.getQueryString();
 
     if (queryString) {
       route += '?' + queryString;

@@ -11,14 +11,14 @@
 'use strict';
 
 jest.dontMock('querystring');
-jest.dontMock('../QueryString');
+jest.dontMock('../QueryStringHelper');
 
-describe('QueryString', function() {
+describe('QueryStringHelper', function() {
 
 	describe('getQueryParameters()', function() {
 
 		it('returns the current URL\'s query parameters as a Javascript object', function() {
-			var queryString = require('../QueryString');
+			var queryString = require('../QueryStringHelper');
 			window.location.search = '?foo=bar';
 
 			expect(queryString.getQueryParameters()).toEqual({
@@ -27,7 +27,7 @@ describe('QueryString', function() {
 		});
 
 		it('returns an empty object if the URL has no query string', function() {
-			var queryString = require('../QueryString');
+			var queryString = require('../QueryStringHelper');
 			window.location.search = '';
 
 			expect(queryString.getQueryParameters()).toEqual({});
@@ -38,7 +38,7 @@ describe('QueryString', function() {
 	describe('getQueryString()', function() {
 
 		it('returns the current URL query string', function() {
-			var queryString = require('../QueryString');
+			var queryString = require('../QueryStringHelper');
 			var testQueryString = 'foo=bar';
 
 			window.location.search = '?' + testQueryString;
