@@ -15,9 +15,9 @@ var React = require('react');
  * Returns an array.
  *
  * @param {object} obj The object to call the function on.
- * @param {function(object, number)} func The function to call
- * on each of the object's properties. It takes as input parameters
- * the value and the key of the current property.
+ * @param {function(*, string)} func The function to call on each
+ * of the object's properties. It takes as input parameters the
+ * value and the key of the current property.
  * @returns {Array} The result.
  */
 function mapObject(obj, func) {
