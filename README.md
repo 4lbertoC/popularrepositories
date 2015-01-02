@@ -77,7 +77,7 @@ For example, you can view the popular repositories of the user _bob_ by appendin
 ### Known Issues
 
 ##### Watchers
-The number of watchers returned by the GitHub API is the same as the stargazers. The correct number should be fetched from `GET /repos/:owner/:repo/subscribers`.
+The number of watchers returned by the GitHub API is the same as the stargazers. The correct number should be fetched from `GET /repos/:owner/:repo/subscribers`. See [this GitHub Blog post](https://developer.github.com/changes/2012-9-5-watcher-api/).
 
 ##### URLs
 The react-starter-kit creates a single-page web application. It uses client-side routes that don't work as direct links.
