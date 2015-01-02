@@ -60,8 +60,8 @@ function render(page, props) {
 // Define URL routes
 // See https://github.com/flatiron/director
 var routes = {
-  '/': () => render(require('./components/pages/Home')),
-  '/repo/:userId/:repoName': (userId, repoName) => render(require('./components/pages/Repo'), {
+  '/': () => render(require('./components/pages/HomePage')),
+  '/repo/:userId/:repoName': (userId, repoName) => render(require('./components/pages/RepoPage'), {
     userId: userId,
     repoName: repoName
   })
