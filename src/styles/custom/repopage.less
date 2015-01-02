@@ -2,12 +2,28 @@
 // RepoPage
 // =============================================================================
 
-.repo-page {
+.repo-languages {
+	background-color: #F3F3ED;
+}
 
-	.well {
-		background-color: #F3F3ED;
+.repo-info-main {
+
+	a.repo-link {
+		color: @jumbotron-color;
 	}
 	
+}
+
+.repo-link-icon {
+	visibility: hidden;
+	font-size: 0.5em;
+	position: absolute;
+}
+
+.repo-link:hover {
+	.repo-link-icon {
+		visibility: visible;
+	}
 }
 
 .repo-page-loading {

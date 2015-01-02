@@ -132,7 +132,8 @@ var GitHubModel = {
 	      stars: repo.stargazers_count,
 	      watchers: repo.watchers_count,
 	      forks: repo.forks_count,
-	      lastUpdate: repo.updated_at
+	      lastUpdate: repo.updated_at,
+	      htmlUrl: repo.html_url
 	    };
 	  });
 	},
@@ -146,7 +147,8 @@ var GitHubModel = {
 	createGitHubUserInfo(userInfo) {
 	  return {
 	    userId: userInfo.login,
-	    avatarUrl: userInfo.avatar_url
+	    avatarUrl: userInfo.avatar_url,
+	    htmlUrl: userInfo.html_url
 	  };
 	}
 };

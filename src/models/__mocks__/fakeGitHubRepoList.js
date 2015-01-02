@@ -12,6 +12,7 @@ module.exports = {
     stars: 123,
     watchers: 456,
     forks: 7,
-    lastUpdate: '2013-12-21T18:09:06Z'
+    lastUpdate: '2013-12-21T18:09:06Z',
+    htmlUrl: 'https://github.com/testUser/testRepo1'
   }]
 };

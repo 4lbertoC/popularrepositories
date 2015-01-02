@@ -53,8 +53,13 @@ var RepoPage = React.createClass({
 
       return (
         <div className="container page repo-page">
-          <div className="jumbotron text-center">
-            <h1>{gitHubRepo.name}</h1>
+          <div className="jumbotron text-center repo-info-main">
+            <h1>
+              <a className="repo-link" href={gitHubRepo.htmlUrl} target="_blank">
+                {gitHubRepo.name}
+                <i className="repo-link-icon fa fa-external-link"></i>
+              </a>
+            </h1>
             <p>Last updated {moment(gitHubRepo.lastUpdate).fromNow()}</p>
             <p>
               <RepoBadgeList gitHubRepo={gitHubRepo} />
@@ -63,7 +68,7 @@ var RepoPage = React.createClass({
               {gitHubRepo.description}
             </p>
           </div>
-          <div className="well languages">
+          <div className="well repo-languages">
             <LanguageList gitHubRepoLanguages={gitHubRepoLanguages} />
           </div>
           <Link to="/">Back to list</Link>

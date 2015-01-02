@@ -49,10 +49,12 @@ var UserInfo = React.createClass({
     /* jshint ignore:start */
     if (gitHubUserInfo) {
       return (
-        <span className="user-info">
-          <img className="user-avatar" src={gitHubUserInfo.avatarUrl} />
-          <span className="user-id">{gitHubUserInfo.userId}</span>
-        </span>
+        <a {...this.props} href={gitHubUserInfo.htmlUrl} target="_blank">
+          <span className="user-info">
+            <img className="user-avatar" src={gitHubUserInfo.avatarUrl} />
+            <span className="user-id">{gitHubUserInfo.userId}</span>
+          </span>
+        </a>
       );
     } else {
       return (
